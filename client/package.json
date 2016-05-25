@@ -1,0 +1,37 @@
+{
+  "name": "persistent-echo",
+  "version": "0.1.0",
+  "description": "persistent-echo",
+  "main": "server.js",
+  "engines": {
+    "node": "5.3.0",
+    "npm": "3.3.12"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thewoolleyman/elm-rails-actioncable-example.git"
+  },
+  "keywords": [
+    "elm"
+  ],
+  "author": "thewoolleyman",
+  "license": "Unlicense",
+  "bugs": {
+    "url": "https://github.com/thewoolleyman/elm-rails-actioncable-example/issues"
+  },
+  "homepage": "https://github.com/thewoolleyman/elm-rails-actioncable-example",
+  "scripts": {
+    "postinstall": "`npm bin`/elm-package install -y",
+    "build:dev:client": "babel-node server-rails-hot.js"
+  },
+  "dependencies": {
+    "babel-cli": "^6.3.17",
+    "elm": "0.17.0",
+    "elm-hot-loader": "^0.3.2",
+    "elm-webpack-loader": "^3.0.1",
+    "webpack": "^1.12.8"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^1.12.1"
+  }
+}

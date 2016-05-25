@@ -1,0 +1,28 @@
+{
+  "name": "wrapper-package",
+  "version": "1.1.2",
+  "description": "Wrapper.",
+  "main": "server.js",
+  "engines": {
+    "node": "5.3.0",
+    "npm": "3.3.12"
+  },
+  "scripts": {
+    "postinstall": "cd client && npm install",
+    "build:dev:client": "(cd client && npm run build:dev:client --silent)"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thewoolleyman/elm-rails-actioncable-example.git"
+  },
+  "keywords": [
+    "elm"
+  ],
+  "author": "thewoolleyman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thewoolleyman/elm-rails-actioncable-example/issues"
+  },
+  "homepage": "https://github.com/thewoolleyman/elm-rails-actioncable-example",
+  "dependencies": {}
+}
