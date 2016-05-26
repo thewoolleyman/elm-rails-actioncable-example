@@ -1,24 +1,24 @@
 // Run with Rails server like this:
 // rails s -b 127.0.0.1
-// cd client && babel-node server-rails-hot.js
+// cd client && babel-node server-hot.js
 // Note that Foreman (Procfile.dev) has also been configured to take care of this.
 
 const path = require('path');
 const webpack = require('webpack');
 
-const config = require('./webpack.client.base.config');
+const config = require('./webpack.base.config');
 
-const hotRailsPort = 3500;
+const hotPort = 3500;
 
 config.entry.app.push(
-  'webpack-dev-server/client?http://127.0.0.1:' + hotRailsPort,
+  'webpack-dev-server/client?http://127.0.0.1:' + hotPort,
   'webpack/hot/only-dev-server'
 );
 
 config.output = {
   filename: 'app-bundle.js',
   path: path.join(__dirname, 'public'),
-  publicPath: `http://127.0.0.1:${hotRailsPort}/`,
+  publicPath: `http://127.0.0.1:${hotPort}/`,
 };
 
 config.module.loaders.push(

@@ -20,7 +20,8 @@
 # Ignore Byebug command history file.
 .byebug_history
 
-/client/elm-stuff/packages
-/client/elm-stuff/build-artifacts
+/client/elm-stuff
+#/client/elm-stuff/packages
+#/client/elm-stuff/build-artifacts
 /client/node_modules
-npm-debug.log
+npm-debug.log*

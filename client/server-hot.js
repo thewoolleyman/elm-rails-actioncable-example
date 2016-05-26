@@ -3,14 +3,14 @@
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 
-const webpackConfig = require('./webpack.client.rails.hot.config');
+const webpackConfig = require('./webpack.hot.config');
 
-const hotRailsPort = 3500;
+const hotPort = 3500;
 
 const compiler = webpack(webpackConfig);
 
 const devServer = new WebpackDevServer(compiler, {
-  contentBase: 'http://lvh.me:' + hotRailsPort,
+  contentBase: 'http://lvh.me:' + hotPort,
   publicPath: webpackConfig.output.publicPath,
   hot: true,
   inline: true,
@@ -27,9 +27,9 @@ const devServer = new WebpackDevServer(compiler, {
   },
 });
 
-devServer.listen(3500, 'localhost', err => {
+devServer.listen(hotPort, 'localhost', err => {
   if (err) console.error(err);
   console.log(
-    '=> 🔥  Webpack development server is running on port ' + hotRailsPort
+    '=> 🔥  Webpack development server is running on port ' + hotPort
   );
 });

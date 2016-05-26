@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Elm Rails Actioncable Example</title>
+
+    <%= action_cable_meta_tag %>
+    <%= javascript_include_tag('application') %>
+
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+    <div>
+      <%= yield %>
+    </div>
+    <%= javascript_include_tag('http://localhost:3500/app-bundle.js') %>
+  </body>
+</html>

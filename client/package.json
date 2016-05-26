@@ -22,7 +22,7 @@
   "homepage": "https://github.com/thewoolleyman/elm-rails-actioncable-example",
   "scripts": {
     "postinstall": "`npm bin`/elm-package install -y",
-    "build:dev:client": "babel-node server-rails-hot.js"
+    "build:dev:client": "babel-node server-hot.js"
   },
   "dependencies": {
     "babel-cli": "^6.3.17",

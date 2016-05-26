@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+set -e
+
+bin/spring stop
+bin/foreman start -f Procfile.dev
