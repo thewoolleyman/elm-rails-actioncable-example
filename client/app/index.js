@@ -3,7 +3,7 @@
 const Elm = require('./bundles/PersistentEcho/Main.elm');
 const mountNode = document.getElementById('main');
 const main = Elm.Main.embed(mountNode);
-const cableUrl = 'ws://127.0.0.1:3000/cable';
+const cableUrl = 'ws://' + appSettings.origin + '/cable';
 const actionCable = ActionCable.createConsumer(cableUrl);
 const channel = actionCable.subscriptions.create('StateChannel', {
   connected() {

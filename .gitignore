@@ -25,3 +25,5 @@
 #/client/elm-stuff/build-artifacts
 /client/node_modules
 npm-debug.log*
+app/assets/webpack
+public/assets

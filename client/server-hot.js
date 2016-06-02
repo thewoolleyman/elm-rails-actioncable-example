@@ -27,7 +27,7 @@ const devServer = new WebpackDevServer(compiler, {
   },
 });
 
-devServer.listen(hotPort, 'localhost', err => {
+devServer.listen(hotPort, '127.0.0.1', err => {
   if (err) console.error(err);
   console.log(
     '=> 🔥  Webpack development server is running on port ' + hotPort

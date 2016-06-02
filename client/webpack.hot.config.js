@@ -1,8 +1,3 @@
-// Run with Rails server like this:
-// rails s -b 127.0.0.1
-// cd client && babel-node server-hot.js
-// Note that Foreman (Procfile.dev) has also been configured to take care of this.
-
 const path = require('path');
 const webpack = require('webpack');
 

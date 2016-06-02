@@ -29,13 +29,32 @@ rm -rf /usr/local/var/postgres
 initdb /usr/local/var/postgres -E utf8
 ```
 
-## Startup
+## App Setup
 
 * `bin/setup`
-* `foreman start -f Procfile.dev`
+
+## Running App in Dev Env
+
+* `bin/start`
 * Open two different browsers to http://127.0.0.1:3000
 * Type into all of them, data is synchronized
 * Close them and reopen, state is persistent
+
+## Running App in Simulated Production Env
+
+(Note: Foreman defaults to using port 5000)
+
+```
+bin/start-local-prod
+```
+
+* App Server: [127.0.0.1:5000](http://127.0.0.1:5000)
+
+Flags for debugging local prod env:
+
+```
+SKIP_EAGER_LOAD=true SKIP_CACHE_CLASSES=true bin/start-local-prod
+```
 
 ## How app was initially created
 

@@ -1,9 +1,16 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: localhost
+  host: 127.0.0.1
   pool: 100
 
 development:
   <<: *default
   database: erae_dev
+
+# for verifying production webpack build functionality,
+# the actual production database.yml is auto-generated
+# by the PaaS buildpack
+production:
+  <<: *default
+  database: erae_prod

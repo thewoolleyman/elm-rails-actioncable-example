@@ -4,8 +4,6 @@
     <title>Elm Rails Actioncable Example</title>
 
     <%= action_cable_meta_tag %>
-    <%= javascript_include_tag('application') %>
-
     <%= csrf_meta_tags %>
   </head>
 
@@ -13,6 +11,12 @@
     <div>
       <%= yield %>
     </div>
-    <%= javascript_include_tag('http://localhost:3500/app-bundle.js') %>
+
+    <%= javascript_include_tag('application') %>
+    <% if Rails.env.production? %>
+      <%= javascript_include_tag('app-static') %>
+    <% else %>
+      <%= javascript_include_tag('http://localhost:3500/app-bundle.js') %>
+    <% end %>
   </body>
 </html>

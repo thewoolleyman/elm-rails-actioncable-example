@@ -9,7 +9,7 @@ class StateChannel < ApplicationCable::Channel
   end
 
   def update(payload)
-    Rails.logger.debug("\n<--- StateChannel received payload: #{payload}\n")
+    Rails.logger.debug("\n\n<--- StateChannel received payload: #{payload}\n")
     model = Model.find_by_id(1)
     unless model
       model = Model.create(id: 1, state: '')

@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+set -e
+
+bin/spring stop
+export DISABLE_SPRING=true
+export RAILS_ENV=production
+export RACK_ENV=production
+export RAILS_SERVE_STATIC_FILES=true
+export PORT=5000
+export ORIGIN=127.0.0.1:${PORT}
+
+export SECRET_KEY_BASE=not-the-real-prod-secret-key-base
+
+if [[ ${SKIP_ASSETS_REBUILD} == 'true' ]]; then
+  echo 'Skipping assets rebuild'
+else
+  bin/rake assets:clobber
+  bin/rake assets:precompile
+fi
+
+bin/foreman start -f Procfile
