@@ -56,6 +56,14 @@ Flags for debugging local prod env:
 SKIP_EAGER_LOAD=true SKIP_CACHE_CLASSES=true bin/start-local-prod
 ```
 
+## Deploying to CloudFoundry
+
+* `cf login`, enter email, password, org, and space.
+* `cf push elm-rails-actioncable-example`
+* Initial setup only (app still needs setup to run):
+  * Add ElephantSQL Postgres service - any instance name, same space/app
+  * cf restage elm-rails-actioncable-example
+
 ## How app was initially created
 
 * Ensure proper ruby/rails version is being used

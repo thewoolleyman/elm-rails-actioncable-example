@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -e
+
+bin/spring stop
+export DISABLE_SPRING=true
+export RAILS_ENV=production
+export RACK_ENV=production
+export PORT=5000
+export WEBSOCKET_PROTOCOL=wss:
+export ORIGIN=elm-rails-actioncable-example.cfapps.io:4443
+
+export SECRET_KEY_BASE=not-the-real-prod-secret-key-base
+
+if [[ ${SKIP_ASSETS_REBUILD} == 'true' ]]; then
+  echo 'Skipping assets rebuild'
+else
+  bin/rake assets:clobber
+  bin/rake assets:precompile
+fi
+
+# See http://docs.run.pivotal.io/devguide/services/migrate-db.html#occasional-migration
+cf push elm-rails-actioncable-example --no-start -c 'rake db:migrate' -i 1
+cf push elm-rails-actioncable-example -c 'null' -b=https://github.com/cloudfoundry/ruby-buildpack
