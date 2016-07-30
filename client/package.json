@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "babel-cli": "^6.3.17",
-    "elm": "0.17.0",
+    "elm": "0.17.1",
     "elm-hot-loader": "^0.3.2",
     "elm-webpack-loader": "^3.0.1",
     "webpack": "^1.12.8"
