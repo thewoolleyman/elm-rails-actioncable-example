@@ -36,7 +36,7 @@ initdb /usr/local/var/postgres -E utf8
 ## Running App in Dev Env
 
 * `bin/start`
-* Open two different browsers to http://127.0.0.1:3000
+* Open two different browsers to http://127.0.0.1:3000 (NOT localhost!)
 * Type into all of them, data is synchronized
 * Close them and reopen, state is persistent
 
