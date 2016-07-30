@@ -27,3 +27,5 @@
 npm-debug.log*
 app/assets/webpack
 public/assets
+
+.idea
