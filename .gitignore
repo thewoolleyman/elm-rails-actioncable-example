@@ -28,4 +28,6 @@ npm-debug.log*
 app/assets/webpack
 public/assets
 
+client/app/bundles/Test/Suite.js
+
 .idea

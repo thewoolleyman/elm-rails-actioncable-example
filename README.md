@@ -60,6 +60,11 @@ Flags for debugging local prod env:
 SKIP_EAGER_LOAD=true SKIP_CACHE_CLASSES=true bin/start-local-prod
 ```
 
+## Running Elm Test Suite
+
+* `npm test` (run and exit, for use in CI)
+* `npm run tdd` ("autorunner", requires `brew install watch`)
+
 ## Deploying to CloudFoundry
 
 * `cf login`, enter email, password, org, and space.
