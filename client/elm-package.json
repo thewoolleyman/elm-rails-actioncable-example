@@ -4,7 +4,7 @@
     "repository": "https://github.com/thewoolleyman/elm-rails-actioncable-example.git",
     "license": "Unlicense",
     "source-directories": [
-        "app/bundles/PersistentEcho/src"
+        "app/bundles/PersistentEcho"
     ],
     "exposed-modules": [],
     "dependencies": {
