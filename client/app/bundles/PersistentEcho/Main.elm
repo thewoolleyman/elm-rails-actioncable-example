@@ -22,13 +22,13 @@ type alias Model =
   { state : String
   }
 
-model : Model
-model =
+initialState : Model
+initialState =
   Model ""
 
 init : (Model, Cmd Msg)
 init =
-  (Model "", Cmd.none)
+  (initialState, Cmd.none)
 
 -- UPDATE
 
