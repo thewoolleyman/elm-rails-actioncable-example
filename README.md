@@ -65,6 +65,8 @@ SKIP_EAGER_LOAD=true SKIP_CACHE_CLASSES=true bin/start-local-prod
 * `npm test` (run and exit, for use in CI)
 * `npm run tdd` ("autorunner", requires `brew install watch`)
 
+If you get Elm compilation errors, try `npm run clean`
+
 ## Deploying to CloudFoundry
 
 * `cf login`, enter email, password, org, and space.

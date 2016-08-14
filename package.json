@@ -8,10 +8,11 @@
     "npm": "3.3.12"
   },
   "scripts": {
-    "postinstall": "cd client && npm install",
     "build:dev:client": "(cd client && npm run build:dev:client --silent)",
-    "test": "(cd client && npm test)",
-    "tdd": "(cd client && watch npm test)"
+    "clean": "(cd client && npm run clean)",
+    "postinstall": "cd client && npm install",
+    "tdd": "(cd client && watch npm test)",
+    "test": "(cd client && npm test)"
   },
   "repository": {
     "type": "git",
