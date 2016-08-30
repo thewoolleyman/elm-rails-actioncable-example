@@ -5,7 +5,7 @@ import Test.Runner.Log
 import Html.App
 import Html
 
-import Utils.ReverserTest exposing (..)
+import PersistentEcho.Utils.ReverserTest exposing (reverser)
 
 main : Program Never
 main =
