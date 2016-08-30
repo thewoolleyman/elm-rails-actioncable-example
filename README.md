@@ -5,6 +5,9 @@ persistent state via websockets implemented with [Elm](http://elm-lang.org/)
 and [Rails Actioncable](https://github.com/rails/rails/tree/master/actioncable)
 (no locking or conflict detection)
 
+Also illustrates [Command Query Responsibility Segregation](http://martinfowler.com/bliki/CQRS.html)
+and (a form of) [Event Sourcing](http://martinfowler.com/eaaDev/EventSourcing.html)
+
 ## Requirements
 
 * Ruby >= 2.3
