@@ -1,8 +1,8 @@
 'use strict';
 
-const Elm = require('./bundles/PersistentEcho/Main.elm');
+const Elm = require('./bundles/PersistentEcho/App.elm');
 const mountNode = document.getElementById('main');
-const main = Elm.Main.embed(mountNode);
+const main = Elm.PersistentEcho.App.embed(mountNode);
 const cableUrl = appSettings.websocketProtocol + '//' + appSettings.origin + '/cable';
 const actionCable = ActionCable.createConsumer(cableUrl);
 const channel = actionCable.subscriptions.create('StateChannel', {

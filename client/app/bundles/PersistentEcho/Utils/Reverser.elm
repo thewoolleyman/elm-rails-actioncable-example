@@ -1,4 +1,4 @@
-module Utils.Reverser exposing (reverseIt)
+module PersistentEcho.Utils.Reverser exposing (reverseIt)
 
 import String exposing (reverse)
 
