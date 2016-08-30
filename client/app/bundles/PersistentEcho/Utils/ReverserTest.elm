@@ -1,11 +1,11 @@
-module Utils.ReverserTest exposing (..)
+module PersistentEcho.Utils.ReverserTest exposing (reverser)
 
 import Test exposing (..)
 import Expect
 import Fuzz exposing (..)
 import String exposing (reverse)
 
-import Utils.Reverser exposing (reverseIt)
+import PersistentEcho.Utils.Reverser exposing (reverseIt)
 
 reverser =
   describe "Reverser reverseIt"
