@@ -2,9 +2,12 @@ module PersistentEcho.Types exposing (..)
 
 type Msg
   = Publish String
-  | Receive String
+  | ReceiveUpdate String
+  | ReceiveChannelStatus ChannelStatus
 
+type alias ChannelStatus = String
 
 type alias Model =
-    { state : String
+    { channelStatus : ChannelStatus
+    , state : String
     }

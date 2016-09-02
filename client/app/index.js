@@ -2,6 +2,7 @@
 
 const cableUrl = appSettings.websocketProtocol + '//' + appSettings.origin + '/cable';
 const actionCable = ActionCable.createConsumer(cableUrl);
+const channelStatusNode = document.getElementById('channelStatus');
 const mountNode = document.getElementById('main');
 // embed the Elm entry point module which contains the `main` function into the HTML document
 const Elm = require('./bundles/PersistentEcho/App.elm');
@@ -10,11 +11,13 @@ const app = Elm.PersistentEcho.App.embed(mountNode);
 // 'StateChannel' must correspond to a Rails subclass of ApplicationCable::Channel on the server.
 const channel = actionCable.subscriptions.create('StateChannel', {
   connected() {
-    // called when websocket channel is connected - unused for now
+    // called when websocket channel is connected - notify "incoming" Elm port/subscription
+    app.ports.receiveChannelStatus.send('connected channel with identifier: ' + this.identifier);
   },
 
   disconnected() {
-    // called when websocket channel is disconnected - unused for now
+    // called when websocket channel is disconnected - notify "incoming" Elm port/subscription
+    app.ports.receiveChannelStatus.send('disconnected channel with identifier: ' + this.identifier);
   },
 
   // `received` is the standard function ActionCable calls when `ActionCable.server.broadcast` is
