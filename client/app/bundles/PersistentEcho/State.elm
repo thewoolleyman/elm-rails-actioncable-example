@@ -6,7 +6,7 @@ import PersistentEcho.Types exposing (..)
 
 initialModel : Model
 initialModel =
-    Model ""
+    Model "uninitialized" ""
 
 initialCommands : Cmd Msg
 initialCommands =
@@ -19,5 +19,7 @@ update msg model =
   case msg of
     Publish newState ->
       (model, publishUpdate newState)
-    Receive newState ->
+    ReceiveUpdate newState ->
       ({ model | state = newState }, Cmd.none)
+    ReceiveChannelStatus newChannelStatus ->
+      ({ model | channelStatus = newChannelStatus }, Cmd.none)

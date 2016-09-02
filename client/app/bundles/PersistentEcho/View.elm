@@ -3,7 +3,6 @@ module PersistentEcho.View exposing (root)
 import PersistentEcho.Types exposing (..)
 import PersistentEcho.Utils.Reverser exposing (reverseIt)
 import Html exposing (..)
-import Html.App
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput)
 
@@ -12,6 +11,12 @@ root model =
   div []
     [
       div [] [
+        span [] [
+          text "Channel Status: "
+        , text model.channelStatus
+        ]
+      ]
+    , div [] [
         span [] [ text "Send the state down: " ]
       , input [ placeholder "type model state", value model.state, onInput Publish ] []
       ]
