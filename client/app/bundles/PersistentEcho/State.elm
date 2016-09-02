@@ -6,7 +6,9 @@ import PersistentEcho.Types exposing (..)
 
 initialModel : Model
 initialModel =
-    Model "uninitialized" ""
+    { channelStatus = "uninitialized"
+    , state = ""
+    }
 
 initialCommands : Cmd Msg
 initialCommands =
