@@ -1,0 +1,2 @@
+class NumericEntity < ApplicationRecord
+end
