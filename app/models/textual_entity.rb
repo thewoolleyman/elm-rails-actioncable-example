@@ -1,0 +1,2 @@
+class TextualEntity < ApplicationRecord
+end

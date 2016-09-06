@@ -8,6 +8,13 @@ and [Rails Actioncable](https://github.com/rails/rails/tree/master/actioncable)
 Also illustrates [Command Query Responsibility Segregation](http://martinfowler.com/bliki/CQRS.html)
 and (a form of) [Event Sourcing](http://martinfowler.com/eaaDev/EventSourcing.html)
 
+The functionality of the app is to update two different types
+of Domain Entities: a TextualEntity which contains a single string field,
+and a NumericEntity which contains a single number (integer) field.
+
+Note that for simplicity, there is only one instance of each type of entity,
+so there's no concept of IDs or processing multiple entities of the same type.
+
 ## Requirements
 
 * Ruby >= 2.3
@@ -42,6 +49,7 @@ initdb /usr/local/var/postgres -E utf8
 * Open two different browsers to http://127.0.0.1:3000 (NOT localhost!)
 * Type into all of them, data is synchronized
 * Close them and reopen, state is persistent
+* Run `bin/setup` to reset state (by recreating databases)
 
 ## Running App in Simulated Production Env
 

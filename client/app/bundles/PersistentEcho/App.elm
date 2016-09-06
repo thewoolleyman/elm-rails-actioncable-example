@@ -5,6 +5,7 @@ import PersistentEcho.State as State
 import PersistentEcho.View as View
 import Html.App
 
+
 main : Program Never
 main =
     Html.App.program
@@ -12,7 +13,7 @@ main =
             ( State.initialModel
             , State.initialCommands
             )
-        , view = View.root
+        , view = View.page
         , update = State.update
         , subscriptions = Ports.subscriptions
         }

@@ -25,6 +25,7 @@
     "build:prod.client": "NODE_ENV=production webpack --config webpack.static.config.js",
     "build:dev:client": "babel-node server-hot.js",
     "clean": "rm -rf elm-stuff/build-artifacts",
+    "compilechecktotmp": "npm run clean && `npm bin`/elm-make app/bundles/PersistentEcho/App.elm --output /tmp/index.html",
     "pretest": "`npm bin`/elm-make app/bundles/Test/Suite.elm --output app/bundles/Test/Suite.js",
     "tdd": "watch npm test",
     "test": "node app/bundles/Test/Suite.js"
