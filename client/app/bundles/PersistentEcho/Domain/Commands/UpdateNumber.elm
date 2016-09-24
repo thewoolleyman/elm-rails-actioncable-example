@@ -1,4 +1,4 @@
-module PersistentEcho.DomainCommands.UpdateNumber exposing (..)
+module PersistentEcho.Domain.Commands.UpdateNumber exposing (..)
 
 import PersistentEcho.Types exposing (..)
 

@@ -1,4 +1,4 @@
-module PersistentEcho.DomainEvents.TextUpdated exposing (textUpdated)
+module PersistentEcho.Domain.Events.TextUpdated exposing (textUpdated)
 
 import PersistentEcho.Types exposing (..)
 
