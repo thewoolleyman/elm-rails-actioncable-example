@@ -1,6 +1,10 @@
-module PersistentEcho.Domain.Commands.UpdateNumber exposing (..)
+module PersistentEcho.Domain.Commands.UpdateNumber exposing (updateNumber)
 
-import PersistentEcho.Types exposing (..)
+import PersistentEcho.Domain.Commands.Types
+    exposing
+        ( DomainCommand
+        , DomainCommand(..)
+        )
 
 
 updateNumber : Int -> DomainCommand

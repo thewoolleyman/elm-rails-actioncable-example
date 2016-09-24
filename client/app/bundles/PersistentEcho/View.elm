@@ -1,6 +1,12 @@
 module PersistentEcho.View exposing (page)
 
-import PersistentEcho.Types exposing (..)
+import PersistentEcho.Types
+    exposing
+        ( Msg(..)
+        , Model
+        )
+import PersistentEcho.Domain.Commands.Types exposing (DomainCommand)
+import PersistentEcho.Domain.Events.Types exposing (DomainEvent)
 import PersistentEcho.Utils.Reverser exposing (reverseIt)
 import PersistentEcho.Styles exposing (..)
 import Html exposing (..)
@@ -37,7 +43,7 @@ textualPane : Model -> Html Msg
 textualPane model =
     div [ textualPaneStyle ]
         [ div []
-            [ text "Textual State:" ]
+            [ text "Textual Entity State:" ]
         , div []
             [ span [] [ text "Send the text down: " ]
             , input [ placeholder "type some text", value model.domainState.text, onInput InvokeUpdateText ] []
@@ -55,7 +61,7 @@ numericPane : Model -> Html Msg
 numericPane model =
     div [ numericPaneStyle ]
         [ div []
-            [ text "Numeric State:" ]
+            [ text "Numeric Entity State:" ]
         , div []
             [ span [] [ text "The number is currently: " ]
             , span [] [ text (toString model.domainState.integer) ]

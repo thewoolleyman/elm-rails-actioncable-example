@@ -1,7 +1,12 @@
 module PersistentEcho.Domain.Commands.Processor exposing (..)
 
 import PersistentEcho.Ports exposing (invokeCommandOnServer)
-import PersistentEcho.Types exposing (..)
+import PersistentEcho.Types exposing (Model)
+import PersistentEcho.Domain.Commands.Types
+    exposing
+        ( DomainCommand
+        , DomainCommand(..)
+        )
 import List exposing (map)
 import Json.Encode exposing (..)
 

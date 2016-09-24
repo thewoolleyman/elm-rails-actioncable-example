@@ -1,6 +1,16 @@
 port module PersistentEcho.Ports exposing (..)
 
-import PersistentEcho.Types exposing (..)
+import PersistentEcho.Types
+    exposing
+        ( Msg(..)
+        , Model
+        , CommandChannelStatus
+        , EventChannelStatus
+        , CommandConnectionSendResult
+        , CommandInvocationResult
+        , EventConnectionSendResult
+        )
+import PersistentEcho.Domain.Events.Types exposing (Sequence)
 import Json.Encode exposing (Value)
 
 

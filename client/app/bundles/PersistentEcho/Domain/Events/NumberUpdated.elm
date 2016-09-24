@@ -1,6 +1,6 @@
 module PersistentEcho.Domain.Events.NumberUpdated exposing (numberUpdated)
 
-import PersistentEcho.Types exposing (..)
+import PersistentEcho.Types exposing (DomainState)
 
 
 numberUpdated : Int -> DomainState -> DomainState
