@@ -2,14 +2,14 @@ module PersistentEcho.State exposing (..)
 
 import PersistentEcho.Ports exposing (..)
 import PersistentEcho.Types exposing (..)
-import PersistentEcho.DomainCommands.DomainCommandProcessor
+import PersistentEcho.Domain.Commands.Processor
     exposing
         ( portedDomainCommand
         , logDomainCommandToHistory
         )
-import PersistentEcho.DomainCommands.UpdateText exposing (updateText)
-import PersistentEcho.DomainCommands.UpdateNumber exposing (updateNumber)
-import PersistentEcho.DomainEvents.DomainEventProcessor
+import PersistentEcho.Domain.Commands.UpdateText exposing (updateText)
+import PersistentEcho.Domain.Commands.UpdateNumber exposing (updateNumber)
+import PersistentEcho.Domain.Events.Processor
     exposing
         ( decodeDomainEventsFromPort
         , processEvent

@@ -1,4 +1,4 @@
-module PersistentEcho.DomainCommands.DomainCommandProcessor exposing (..)
+module PersistentEcho.Domain.Commands.Processor exposing (..)
 
 import PersistentEcho.Ports exposing (invokeCommandOnServer)
 import PersistentEcho.Types exposing (..)

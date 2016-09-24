@@ -1,9 +1,9 @@
-module PersistentEcho.DomainEvents.DomainEventProcessor exposing (..)
+module PersistentEcho.Domain.Events.Processor exposing (..)
 
 import List exposing (foldl)
 import PersistentEcho.Types exposing (..)
-import PersistentEcho.DomainEvents.TextUpdated exposing (textUpdated)
-import PersistentEcho.DomainEvents.NumberUpdated exposing (numberUpdated)
+import PersistentEcho.Domain.Events.TextUpdated exposing (textUpdated)
+import PersistentEcho.Domain.Events.NumberUpdated exposing (numberUpdated)
 import Json.Encode exposing (Value)
 import Json.Decode.Extra exposing ((|:))
 import Json.Decode

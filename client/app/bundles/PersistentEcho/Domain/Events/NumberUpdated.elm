@@ -1,4 +1,4 @@
-module PersistentEcho.DomainEvents.NumberUpdated exposing (numberUpdated)
+module PersistentEcho.Domain.Events.NumberUpdated exposing (numberUpdated)
 
 import PersistentEcho.Types exposing (..)
 
