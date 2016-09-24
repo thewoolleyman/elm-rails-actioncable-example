@@ -1,6 +1,10 @@
-module PersistentEcho.Domain.Commands.UpdateText exposing (..)
+module PersistentEcho.Domain.Commands.UpdateText exposing (updateText)
 
-import PersistentEcho.Types exposing (..)
+import PersistentEcho.Domain.Commands.Types
+    exposing
+        ( DomainCommand
+        , DomainCommand(..)
+        )
 
 
 updateText : String -> DomainCommand

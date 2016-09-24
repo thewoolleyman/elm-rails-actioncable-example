@@ -1,7 +1,16 @@
-module PersistentEcho.State exposing (..)
+module PersistentEcho.State
+    exposing
+        ( initialModel
+        , initialCommands
+        , update
+        )
 
 import PersistentEcho.Ports exposing (..)
-import PersistentEcho.Types exposing (..)
+import PersistentEcho.Types
+    exposing
+        ( Msg(..)
+        , Model
+        )
 import PersistentEcho.Domain.Commands.Processor
     exposing
         ( portedDomainCommand
@@ -15,6 +24,9 @@ import PersistentEcho.Domain.Events.Processor
         , processEvent
         , applyDomainEvents
         )
+
+
+-- See https://gist.github.com/evancz/2b2ba366cae1887fe621 for state architecture guidelines
 
 
 initialModel : Model

@@ -1,7 +1,16 @@
-module PersistentEcho.Domain.Events.Processor exposing (..)
+module PersistentEcho.Domain.Events.Processor exposing (decodeDomainEventsFromPort, processEvent, applyDomainEvents)
 
 import List exposing (foldl)
 import PersistentEcho.Types exposing (..)
+import PersistentEcho.Domain.Events.Types
+    exposing
+        ( DomainEvent
+        , DomainEventHistory
+        , EventData(..)
+        , invalidDomainEvent
+        , textualEntityUpdatedEventData
+        , numericEntityUpdatedEventData
+        )
 import PersistentEcho.Domain.Events.TextUpdated exposing (textUpdated)
 import PersistentEcho.Domain.Events.NumberUpdated exposing (numberUpdated)
 import Json.Encode exposing (Value)
@@ -24,8 +33,10 @@ import Json.Decode
         )
 
 
--- NOTE: We have to manually decode the event rather than letting port, because ports don't
---       support native data types.  See: https://github.com/elm-lang/elm-compiler/issues/490
+{-
+   NOTE: We have to manually JSOn decode the event rather than letting the port handle it, because ports don't
+   support native data types.  See: https://github.com/elm-lang/elm-compiler/issues/490
+-}
 
 
 decodeDomainEventsFromPort : Value -> List DomainEvent
@@ -36,10 +47,6 @@ decodeDomainEventsFromPort eventsPayload =
 
         Err errorMessage ->
             [ invalidDomainEvent errorMessage ]
-
-
-
---    Err errorMessage -> Debug.log ("Invalid domain event payload Received.  Error message: " ++ message) [invalidDomainEvent errorMessage]
 
 
 eventsDecoder : Decoder (List DomainEvent)
@@ -65,6 +72,13 @@ decodeEventData eventType =
     at [ "data" ] <| eventDataDecoderForEventType eventType
 
 
+{-|
+    TODO: There could be better handling of invalid event types passed in via the port.  Currently
+          it's just added as an "invalid" event.  In a real app, you'd probably want to force a reload of the page,
+          since presumably (unless you have a bug) the server has sent a new event type
+          that the current client code doesn't support.  Note that supporting native Elm types over ports would
+          make this better.  See: https://github.com/elm-lang/elm-compiler/issues/490
+-}
 eventDataDecoderForEventType : String -> Decoder EventData
 eventDataDecoderForEventType eventType =
     case eventType of
@@ -78,19 +92,18 @@ eventDataDecoderForEventType eventType =
             fail ("Invalid domain event type received. Error message: '" ++ eventType ++ "'")
 
 
-
--- Note that this uses the standard Elm Json.Decode library approach using `object2` and `:=`
-
-
+{-|
+    Note: this uses the standard Elm Json.Decode library approach using `object1` and `:=`
+-}
 textualEntityUpdatedEventDataDecoder : Decoder EventData
 textualEntityUpdatedEventDataDecoder =
     object1 textualEntityUpdatedEventData ("text" := string)
 
 
-
--- Note that this uses the elm-community/json-extra Json.Decode.Extra library approach using `succeed` and `|=`
-
-
+{-|
+    Note: numericEntityUpdatedEventDataDecoder uses the elm-community/json-extra Json.Decode.Extra library approach
+          using `succeed` and `|=`
+-}
 numericEntityUpdatedEventDataDecoder : Decoder EventData
 numericEntityUpdatedEventDataDecoder =
     succeed numericEntityUpdatedEventData
@@ -109,10 +122,10 @@ applyDomainEvents domainEvents domainState domainEventHistory =
         ( newDomainState, newDomainEventHistory )
 
 
-
--- See https://gist.github.com/evancz/2b2ba366cae1887fe621 for state architecture guidelines
-
-
+{-|
+    TODO: How to not expose the union type constructors, as recommended by
+     http://package.elm-lang.org/help/design-guidelines#keep-tags-and-record-constructors-secret
+-}
 processEvent : DomainEvent -> DomainState -> DomainState
 processEvent domainEvent domainState =
     let
@@ -126,19 +139,8 @@ processEvent domainEvent domainState =
             NumericEntityUpdated integer ->
                 numberUpdated integer domainState
 
-            Null ->
-                domainState
-
             Invalid msg ->
                 domainState
-
-
-
---      TextualEntityUpdatedEventData -> textUpdated eventData domainState
---      NumericEntityUpdatedEventData -> numberUpdated eventData domainState
--- TODO: ^^^
--- 1. How to handle invalid event name passed in via port? See: https://github.com/elm-lang/elm-compiler/issues/490
--- 2. How to not expose the union type constructors, as recommended by http://package.elm-lang.org/help/design-guidelines#keep-tags-and-record-constructors-secret
 
 
 logDomainEventToHistory : DomainEvent -> DomainEventHistory -> DomainEventHistory
