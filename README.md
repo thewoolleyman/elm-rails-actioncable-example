@@ -90,3 +90,11 @@ If you get Elm compilation errors, try `npm run clean`
 
 * Ensure proper ruby/rails version is being used
 * `rails new elm-rails-actioncable-example --api --no-skip-action-cable --skip-test --skip-action-mailer`
+
+# TODO:
+
+* Per-client cable connections, so only new clients receive getEventsSince.
+  See http://edgeguides.rubyonrails.org/action_cable_overview.html#server-side-components-connections
+* Split out client connection state to sub-record and separate namespace
+* Add coloring to connection state - green/red.
+* Make update function handle commands generically by event, not per command.
