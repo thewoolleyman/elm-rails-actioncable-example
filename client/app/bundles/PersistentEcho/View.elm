@@ -115,14 +115,8 @@ clientStatusRow model =
     div [ clientStatusRowStyle ]
         [ div []
             [ span []
-                [ text "Websocket Command Channel Status: "
-                , text model.commandChannelStatus
-                ]
-            ]
-        , div []
-            [ span []
-                [ text "Websocket Event Channel Status: "
-                , text model.eventChannelStatus
+                [ text "Websocket Channel Connected Statuses: "
+                , text <| toString model.channelConnectedStatuses
                 ]
             ]
         , div []

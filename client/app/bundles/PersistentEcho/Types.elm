@@ -2,8 +2,8 @@ module PersistentEcho.Types
     exposing
         ( Msg(..)
         , Model
-        , CommandChannelStatus
-        , EventChannelStatus
+        , ChannelConnectedStatus
+        , ChannelConnectedStatuses
         , CommandConnectionSendResult
         , CommandInvocationResult
         , EventConnectionSendResult
@@ -20,8 +20,7 @@ import Json.Encode exposing (Value)
 
 
 type Msg
-    = ReceiveCommandChannelStatus CommandChannelStatus
-    | ReceiveEventChannelStatus EventChannelStatus
+    = ReceiveChannelConnectedStatus ChannelConnectedStatus
     | InvokeUpdateText String
     | InvokeUpdateNumber Int
     | ReceiveCommandConnectionSendResult CommandConnectionSendResult
@@ -35,8 +34,7 @@ type Msg
 
 
 type alias Model =
-    { commandChannelStatus : CommandChannelStatus
-    , eventChannelStatus : EventChannelStatus
+    { channelConnectedStatuses : ChannelConnectedStatuses
     , commandConnectionSendResult : CommandConnectionSendResult
     , commandInvocationResult : CommandInvocationResult
     , eventConnectionSendResult : EventConnectionSendResult
@@ -50,12 +48,17 @@ type alias Model =
 -- client local websocket status and metrics
 
 
-type alias CommandChannelStatus =
-    String
+type alias ChannelConnectedStatus =
+    { channel : String
+    , connected : Bool
+    }
 
 
-type alias EventChannelStatus =
-    String
+type alias ChannelConnectedStatuses =
+    { commandChannel : Bool
+    , eventChannel : Bool
+    , eventsSinceChannel : Bool
+    }
 
 
 type alias CommandConnectionSendResult =
