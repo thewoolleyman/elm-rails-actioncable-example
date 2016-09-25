@@ -5,13 +5,23 @@ module PersistentEcho.State
         , update
         )
 
-import PersistentEcho.Ports exposing (..)
+import PersistentEcho.Ports
+    exposing
+        ( receiveChannelConnectedStatus
+        , invokeCommandOnServer
+        , receiveCommandConnectionSendResult
+        , receiveCommandInvocationResult
+        , receiveEventConnectionSendResult
+        )
+import PersistentEcho.Channels.Status
+    exposing
+        ( initialChannelConnectedStatuses
+        , updateChannelConnectedStatus
+        )
 import PersistentEcho.Types
     exposing
         ( Msg(..)
         , Model
-        , ChannelConnectedStatus
-        , ChannelConnectedStatuses
         , DomainState
         )
 import PersistentEcho.Domain.Commands.Processor
@@ -52,14 +62,6 @@ initialCmds =
     Cmd.batch
         [ Cmd.none
         ]
-
-
-initialChannelConnectedStatuses : ChannelConnectedStatuses
-initialChannelConnectedStatuses =
-    { commandChannel = False
-    , eventChannel = False
-    , eventsSinceChannel = False
-    }
 
 
 initialDomainState : DomainState
@@ -117,22 +119,3 @@ update msg model =
                     applyDomainEvents domainEvents model.domainState model.domainEventHistory
             in
                 ( { model | domainState = newDomainState, domainEventHistory = newDomainEventHistory }, Cmd.none )
-
-
-updateChannelConnectedStatus : ChannelConnectedStatus -> ChannelConnectedStatuses -> ( ChannelConnectedStatuses, Cmd msg )
-updateChannelConnectedStatus channelConnectedStatus channelConnectedStatuses =
-    case channelConnectedStatus.channel of
-        "CommandChannel" ->
-            ( { channelConnectedStatuses | commandChannel = channelConnectedStatus.connected }, Cmd.none )
-
-        "EventChannel" ->
-            ( { channelConnectedStatuses | eventChannel = channelConnectedStatus.connected }, Cmd.none )
-
-        -- Don't attempt to get initial events until the channel is open.
-        "EventsSinceChannel" ->
-            ( { channelConnectedStatuses | eventsSinceChannel = channelConnectedStatus.connected }
-            , getEventsSince { data = 0 }
-            )
-
-        _ ->
-            Debug.crash "Invalid channel name received for updating channel connected status."
