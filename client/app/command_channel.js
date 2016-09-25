@@ -1,33 +1,19 @@
 'use strict';
 
+const channelSubscriber = require('./channel_subscriber.js');
+
 /*
- setupCommandChannel() is one of two javascript shims between ActionCable and Elm ports.
- The duplication between them could be DRYed up, but they are left separate in this example app for clarity.
- This one is for outbound commands being sent from the Elm client to the server and their (inbound) results.
+ setupCommandChannel() is one of the javascript shims between ActionCable and Elm ports.
+ This one is for outbound domain commands being sent from the Elm client to the server and their (inbound) results.
  */
 const setupCommandChannel = (elmApp, actionCable) => {
   // 'CommandChannel' must correspond to a Rails subclass of ApplicationCable::Channel on the server.
-  const channel = actionCable.subscriptions.create('CommandChannel', {
-    connected() {
-      // called when websocket channel is connected - notify "incoming" Elm port/subscription
-      elmApp.ports.receiveCommandChannelStatus.send('connected channel with identifier: ' + this.identifier);
-    },
-
-    disconnected() {
-      // called when websocket channel is disconnected - notify "incoming" Elm port/subscription
-      elmApp.ports.receiveCommandChannelStatus.send('disconnected channel with identifier: ' + this.identifier);
-    },
-
-    // `received` is the standard function ActionCable calls when `ActionCable.server.broadcast` is
-    // invoked via Rails on the server to send data to the client on this channel via websockets.
-    // i.e. the single server -> client websocket connection for this channel
-    received(commandInvocationResult) {
-      console.log('<--- CommandChannel received commandInvocationResult:');
-      console.log(commandInvocationResult);
-      // send data received from the server on this ActionCable websocket channel to an "incoming" Elm port/subscription
-      elmApp.ports.receiveCommandInvocationResult.send(commandInvocationResult);
-    },
-  });
+  const channel = channelSubscriber.subscribe(
+    'CommandChannel',
+    actionCable,
+    elmApp.ports.receiveChannelConnectedStatus,
+    elmApp.ports.receiveCommandInvocationResult
+  );
 
   // `invokeCommandOnServer` is a custom callback function the Elm port/command calls
   // to invoke a command on the server via websockets.

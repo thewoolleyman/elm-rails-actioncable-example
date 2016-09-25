@@ -4,8 +4,7 @@ import PersistentEcho.Types
     exposing
         ( Msg(..)
         , Model
-        , CommandChannelStatus
-        , EventChannelStatus
+        , ChannelConnectedStatus
         , CommandConnectionSendResult
         , CommandInvocationResult
         , EventConnectionSendResult
@@ -14,10 +13,7 @@ import PersistentEcho.Domain.Events.Types exposing (Sequence)
 import Json.Encode exposing (Value)
 
 
-port receiveCommandChannelStatus : (CommandChannelStatus -> msg) -> Sub msg
-
-
-port receiveEventChannelStatus : (EventChannelStatus -> msg) -> Sub msg
+port receiveChannelConnectedStatus : (ChannelConnectedStatus -> msg) -> Sub msg
 
 
 port invokeCommandOnServer : Value -> Cmd msg
@@ -41,8 +37,7 @@ port applyEvents : (Value -> msg) -> Sub msg
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.batch
-        [ receiveEventChannelStatus ReceiveEventChannelStatus
-        , receiveCommandChannelStatus ReceiveCommandChannelStatus
+        [ receiveChannelConnectedStatus ReceiveChannelConnectedStatus
         , receiveCommandConnectionSendResult ReceiveCommandConnectionSendResult
         , receiveCommandInvocationResult ReceiveCommandInvocationResult
         , receiveEventConnectionSendResult ReceiveEventConnectionSendResult

@@ -11,7 +11,7 @@ main =
     Html.App.program
         { init =
             ( State.initialModel
-            , State.initialCommands
+            , State.initialCmds
             )
         , view = View.page
         , update = State.update

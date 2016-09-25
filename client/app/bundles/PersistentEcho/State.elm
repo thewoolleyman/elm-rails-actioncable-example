@@ -1,7 +1,7 @@
 module PersistentEcho.State
     exposing
         ( initialModel
-        , initialCommands
+        , initialCmds
         , update
         )
 
@@ -10,6 +10,9 @@ import PersistentEcho.Types
     exposing
         ( Msg(..)
         , Model
+        , ChannelConnectedStatus
+        , ChannelConnectedStatuses
+        , DomainState
         )
 import PersistentEcho.Domain.Commands.Processor
     exposing
@@ -31,8 +34,7 @@ import PersistentEcho.Domain.Events.Processor
 
 initialModel : Model
 initialModel =
-    { commandChannelStatus = "uninitialized"
-    , eventChannelStatus = "uninitialized"
+    { channelConnectedStatuses = initialChannelConnectedStatuses
     , commandConnectionSendResult = False
     , commandInvocationResult =
         { result = "uninitialized"
@@ -41,18 +43,30 @@ initialModel =
     , eventConnectionSendResult = False
     , domainCommandHistory = []
     , domainEventHistory = []
-    , domainState =
-        { text = ""
-        , integer = 0
-        }
+    , domainState = initialDomainState
     }
 
 
-initialCommands : Cmd Msg
-initialCommands =
+initialCmds : Cmd Msg
+initialCmds =
     Cmd.batch
-        [ getEventsSince { data = 0 }
+        [ Cmd.none
         ]
+
+
+initialChannelConnectedStatuses : ChannelConnectedStatuses
+initialChannelConnectedStatuses =
+    { commandChannel = False
+    , eventChannel = False
+    , eventsSinceChannel = False
+    }
+
+
+initialDomainState : DomainState
+initialDomainState =
+    { text = ""
+    , integer = 0
+    }
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -78,11 +92,12 @@ update msg model =
             in
                 ( newModel, invokeCommandOnServer (portedDomainCommand updateNumberCommand) )
 
-        ReceiveCommandChannelStatus newCommandChannelStatus ->
-            ( { model | commandChannelStatus = newCommandChannelStatus }, Cmd.none )
-
-        ReceiveEventChannelStatus newEventChannelStatus ->
-            ( { model | eventChannelStatus = newEventChannelStatus }, Cmd.none )
+        ReceiveChannelConnectedStatus channelConnectedStatus ->
+            let
+                ( newChannelConnectedStatuses, cmd ) =
+                    updateChannelConnectedStatus channelConnectedStatus model.channelConnectedStatuses
+            in
+                ( { model | channelConnectedStatuses = newChannelConnectedStatuses }, cmd )
 
         ReceiveCommandConnectionSendResult newCommandConnectionSendResult ->
             ( { model | commandConnectionSendResult = newCommandConnectionSendResult }, Cmd.none )
@@ -102,3 +117,22 @@ update msg model =
                     applyDomainEvents domainEvents model.domainState model.domainEventHistory
             in
                 ( { model | domainState = newDomainState, domainEventHistory = newDomainEventHistory }, Cmd.none )
+
+
+updateChannelConnectedStatus : ChannelConnectedStatus -> ChannelConnectedStatuses -> ( ChannelConnectedStatuses, Cmd msg )
+updateChannelConnectedStatus channelConnectedStatus channelConnectedStatuses =
+    case channelConnectedStatus.channel of
+        "CommandChannel" ->
+            ( { channelConnectedStatuses | commandChannel = channelConnectedStatus.connected }, Cmd.none )
+
+        "EventChannel" ->
+            ( { channelConnectedStatuses | eventChannel = channelConnectedStatus.connected }, Cmd.none )
+
+        -- Don't attempt to get initial events until the channel is open.
+        "EventsSinceChannel" ->
+            ( { channelConnectedStatuses | eventsSinceChannel = channelConnectedStatus.connected }
+            , getEventsSince { data = 0 }
+            )
+
+        _ ->
+            Debug.crash "Invalid channel name received for updating channel connected status."
