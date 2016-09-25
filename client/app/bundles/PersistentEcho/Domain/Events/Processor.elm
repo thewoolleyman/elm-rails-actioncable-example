@@ -1,10 +1,16 @@
-module PersistentEcho.Domain.Events.Processor exposing (decodeDomainEventsFromPort, processEvent, applyDomainEvents)
+module PersistentEcho.Domain.Events.Processor
+    exposing
+        ( decodeDomainEventsFromPort
+        , processEvent
+        , applyDomainEvents
+        , latestDomainEventSequence
+        )
 
-import List exposing (foldl)
-import PersistentEcho.Types exposing (..)
+import PersistentEcho.Types exposing (DomainState)
 import PersistentEcho.Domain.Events.Types
     exposing
         ( DomainEvent
+        , Sequence
         , DomainEventHistory
         , EventData(..)
         , invalidDomainEvent
@@ -13,6 +19,8 @@ import PersistentEcho.Domain.Events.Types
         )
 import PersistentEcho.Domain.Events.TextUpdated exposing (textUpdated)
 import PersistentEcho.Domain.Events.NumberUpdated exposing (numberUpdated)
+import List exposing (foldl, head)
+import Maybe exposing (withDefault, map)
 import Json.Encode exposing (Value)
 import Json.Decode.Extra exposing ((|:))
 import Json.Decode
@@ -146,3 +154,8 @@ processEvent domainEvent domainState =
 logDomainEventToHistory : DomainEvent -> DomainEventHistory -> DomainEventHistory
 logDomainEventToHistory domainEvent domainEventHistory =
     domainEvent :: domainEventHistory
+
+
+latestDomainEventSequence : DomainEventHistory -> Sequence
+latestDomainEventSequence domainEventHistory =
+    map (\domainEvent -> domainEvent.sequence) (head domainEventHistory) |> withDefault 0

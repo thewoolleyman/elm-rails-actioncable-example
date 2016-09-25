@@ -36,6 +36,7 @@ import PersistentEcho.Domain.Events.Processor
         ( decodeDomainEventsFromPort
         , processEvent
         , applyDomainEvents
+        , latestDomainEventSequence
         )
 
 
@@ -97,7 +98,10 @@ update msg model =
         ReceiveChannelConnectedStatus channelConnectedStatus ->
             let
                 ( newChannelConnectedStatuses, cmd ) =
-                    updateChannelConnectedStatus channelConnectedStatus model.channelConnectedStatuses
+                    updateChannelConnectedStatus
+                        channelConnectedStatus
+                        (latestDomainEventSequence model.domainEventHistory)
+                        model.channelConnectedStatuses
             in
                 ( { model | channelConnectedStatuses = newChannelConnectedStatuses }, cmd )
 

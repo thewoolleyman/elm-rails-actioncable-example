@@ -10,6 +10,7 @@ import PersistentEcho.Channels.Types
         ( ChannelConnectedStatus
         , ChannelConnectedStatuses
         )
+import PersistentEcho.Domain.Events.Types exposing (Sequence)
 
 
 initialChannelConnectedStatuses : ChannelConnectedStatuses
@@ -20,8 +21,8 @@ initialChannelConnectedStatuses =
     }
 
 
-updateChannelConnectedStatus : ChannelConnectedStatus -> ChannelConnectedStatuses -> ( ChannelConnectedStatuses, Cmd msg )
-updateChannelConnectedStatus channelConnectedStatus channelConnectedStatuses =
+updateChannelConnectedStatus : ChannelConnectedStatus -> Sequence -> ChannelConnectedStatuses -> ( ChannelConnectedStatuses, Cmd msg )
+updateChannelConnectedStatus channelConnectedStatus latestDomainEventSequence channelConnectedStatuses =
     case channelConnectedStatus.channel of
         "CommandChannel" ->
             ( { channelConnectedStatuses | commandChannel = channelConnectedStatus.connected }, Cmd.none )
@@ -32,7 +33,7 @@ updateChannelConnectedStatus channelConnectedStatus channelConnectedStatuses =
         -- Don't attempt to get initial events until the channel is open.
         "EventsSinceChannel" ->
             ( { channelConnectedStatuses | eventsSinceChannel = channelConnectedStatus.connected }
-            , getEventsSince { data = 0 }
+            , getEventsSince { data = latestDomainEventSequence }
             )
 
         _ ->
