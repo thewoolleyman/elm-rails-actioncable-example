@@ -1,10 +1,23 @@
-port module PersistentEcho.Ports exposing (..)
+port module PersistentEcho.Ports
+    exposing
+        ( receiveChannelConnectedStatus
+        , invokeCommandOnServer
+        , receiveCommandConnectionSendResult
+        , receiveCommandInvocationResult
+        , receiveEventConnectionSendResult
+        , getEventsSince
+        , applyEvents
+        , subscriptions
+        )
 
 import PersistentEcho.Types
     exposing
         ( Msg(..)
         , Model
-        , ChannelConnectedStatus
+        )
+import PersistentEcho.Channels.Types
+    exposing
+        ( ChannelConnectedStatus
         , CommandConnectionSendResult
         , CommandInvocationResult
         , EventConnectionSendResult

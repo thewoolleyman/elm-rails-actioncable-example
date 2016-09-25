@@ -2,16 +2,18 @@ module PersistentEcho.Types
     exposing
         ( Msg(..)
         , Model
-        , ChannelConnectedStatus
+        , DomainState
+        )
+
+import PersistentEcho.Channels.Types
+    exposing
+        ( ChannelConnectedStatus
         , ChannelConnectedStatuses
         , CommandConnectionSendResult
         , CommandInvocationResult
         , EventConnectionSendResult
-        , DomainState
         )
-
-import PersistentEcho.Domain.Commands.Types exposing (DomainCommand)
-import PersistentEcho.Domain.Commands.Types exposing (DomainCommandHistory)
+import PersistentEcho.Domain.Commands.Types exposing (DomainCommand, DomainCommandHistory)
 import PersistentEcho.Domain.Events.Types exposing (DomainEventHistory)
 import Json.Encode exposing (Value)
 
@@ -42,37 +44,6 @@ type alias Model =
     , domainEventHistory : DomainEventHistory
     , domainState : DomainState
     }
-
-
-
--- client local websocket status and metrics
-
-
-type alias ChannelConnectedStatus =
-    { channel : String
-    , connected : Bool
-    }
-
-
-type alias ChannelConnectedStatuses =
-    { commandChannel : Bool
-    , eventChannel : Bool
-    , eventsSinceChannel : Bool
-    }
-
-
-type alias CommandConnectionSendResult =
-    Bool
-
-
-type alias CommandInvocationResult =
-    { result : String
-    , details : List String
-    }
-
-
-type alias EventConnectionSendResult =
-    Bool
 
 
 
