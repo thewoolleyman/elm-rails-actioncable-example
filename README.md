@@ -99,3 +99,4 @@ If you get Elm compilation errors, try `npm run clean`
 * (done for events since channel) Do not attempt send outbound port requests if connection is down (test in prod_local)
 * Make update function handle commands generically by event, not per command.
 * Add coloring to connection state - green/red.
+* fill out tests
