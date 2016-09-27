@@ -12,10 +12,11 @@ const channelSubscriber = require('./channel_subscriber.js');
  */
 const setupEventChannel = (elmApp, actionCable) => {
   // 'EventChannel' must correspond to a Rails subclass of ApplicationCable::Channel on the server.
-  const channel = channelSubscriber.subscribe(
+  const channelPerform = channelSubscriber.subscribe(
     'EventChannel',
     actionCable,
     elmApp.ports.receiveChannelConnectedStatus,
+    elmApp.ports.logChannelConnectionSendFailure,
     elmApp.ports.applyEvents
   );
 };

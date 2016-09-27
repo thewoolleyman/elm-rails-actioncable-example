@@ -2,10 +2,13 @@ module PersistentEcho.Channels.Types
     exposing
         ( ChannelConnectedStatus
         , ChannelConnectedStatuses
-        , CommandConnectionSendResult
+        , ChannelConnectionSendFailure
+        , ChannelConnectionSendFailures
         , CommandInvocationResult
-        , EventConnectionSendResult
         )
+
+import Json.Encode exposing (Value)
+
 
 -- client local websocket status and metrics
 
@@ -23,15 +26,18 @@ type alias ChannelConnectedStatuses =
     }
 
 
-type alias CommandConnectionSendResult =
-    Bool
+type alias ChannelConnectionSendFailures =
+    List ChannelConnectionSendFailure
+
+
+type alias ChannelConnectionSendFailure =
+    { channelName : String
+    , action : String
+    , data : Value
+    }
 
 
 type alias CommandInvocationResult =
     { result : String
     , details : List String
     }
-
-
-type alias EventConnectionSendResult =
-    Bool

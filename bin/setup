@@ -51,6 +51,9 @@ chdir APP_ROOT do
   puts "\n== Migrating dev database =="
   system! 'bin/rails db:migrate'
 
+  puts "\n== Migrating local prod database =="
+  system! 'RAILS_ENV=production bin/rails db:migrate'
+
   puts "\n== Preparing dev database =="
   system! 'bin/rails db:setup'
 
