@@ -30,11 +30,16 @@ updateChannelConnectedStatus channelConnectedStatus latestDomainEventSequence ch
         "EventChannel" ->
             ( { channelConnectedStatuses | eventChannel = channelConnectedStatus.connected }, Cmd.none )
 
-        -- Don't attempt to get initial events until the channel is open.
         "EventsSinceChannel" ->
-            ( { channelConnectedStatuses | eventsSinceChannel = channelConnectedStatus.connected }
-            , getEventsSince { data = latestDomainEventSequence }
-            )
+            let
+                cmd =
+                    -- Don't attempt to get events unless the channel is open.
+                    if channelConnectedStatus.connected == True then
+                        getEventsSince { data = latestDomainEventSequence }
+                    else
+                        Cmd.none
+            in
+                ( { channelConnectedStatuses | eventsSinceChannel = channelConnectedStatus.connected }, cmd )
 
         _ ->
             Debug.crash "Invalid channel name received for updating channel connected status."

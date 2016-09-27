@@ -1,10 +1,10 @@
 port module PersistentEcho.Ports
     exposing
         ( receiveChannelConnectedStatus
+        , getEventsSince
         , invokeCommandOnServer
         , logChannelConnectionSendFailure
         , receiveCommandInvocationResult
-        , getEventsSince
         , applyEvents
         , subscriptions
         )
@@ -27,6 +27,9 @@ import Json.Encode exposing (Value)
 port receiveChannelConnectedStatus : (ChannelConnectedStatus -> msg) -> Sub msg
 
 
+port getEventsSince : { data : Sequence } -> Cmd msg
+
+
 port invokeCommandOnServer : Value -> Cmd msg
 
 
@@ -34,9 +37,6 @@ port logChannelConnectionSendFailure : (ChannelConnectionSendFailure -> msg) -> 
 
 
 port receiveCommandInvocationResult : (CommandInvocationResult -> msg) -> Sub msg
-
-
-port getEventsSince : { data : Sequence } -> Cmd msg
 
 
 port applyEvents : (Value -> msg) -> Sub msg
