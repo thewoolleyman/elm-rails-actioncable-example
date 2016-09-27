@@ -121,20 +121,14 @@ clientStatusRow model =
             ]
         , div []
             [ span []
-                [ text "Last Websocket Command Channel Connection.send Successful: "
-                , text (toString model.commandConnectionSendResult)
+                [ text "Websocket Command Channel Connection.send Failures: "
+                , text (toString model.channelConnectionSendFailures)
                 ]
             ]
         , div []
             [ span []
                 [ text "Last Websocket Command Channel Invocation Result: "
                 , text (toString model.commandInvocationResult)
-                ]
-            ]
-        , div []
-            [ span []
-                [ text "Last Websocket Event Channel Connection.send Successful: "
-                , text (toString model.eventConnectionSendResult)
                 ]
             ]
         ]

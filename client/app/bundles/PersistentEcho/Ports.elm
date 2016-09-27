@@ -2,9 +2,8 @@ port module PersistentEcho.Ports
     exposing
         ( receiveChannelConnectedStatus
         , invokeCommandOnServer
-        , receiveCommandConnectionSendResult
+        , logChannelConnectionSendFailure
         , receiveCommandInvocationResult
-        , receiveEventConnectionSendResult
         , getEventsSince
         , applyEvents
         , subscriptions
@@ -18,9 +17,8 @@ import PersistentEcho.Types
 import PersistentEcho.Channels.Types
     exposing
         ( ChannelConnectedStatus
-        , CommandConnectionSendResult
+        , ChannelConnectionSendFailure
         , CommandInvocationResult
-        , EventConnectionSendResult
         )
 import PersistentEcho.Domain.Events.Types exposing (Sequence)
 import Json.Encode exposing (Value)
@@ -32,13 +30,10 @@ port receiveChannelConnectedStatus : (ChannelConnectedStatus -> msg) -> Sub msg
 port invokeCommandOnServer : Value -> Cmd msg
 
 
-port receiveCommandConnectionSendResult : (CommandConnectionSendResult -> msg) -> Sub msg
+port logChannelConnectionSendFailure : (ChannelConnectionSendFailure -> msg) -> Sub msg
 
 
 port receiveCommandInvocationResult : (CommandInvocationResult -> msg) -> Sub msg
-
-
-port receiveEventConnectionSendResult : (EventConnectionSendResult -> msg) -> Sub msg
 
 
 port getEventsSince : { data : Sequence } -> Cmd msg
@@ -51,8 +46,7 @@ subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.batch
         [ receiveChannelConnectedStatus ReceiveChannelConnectedStatus
-        , receiveCommandConnectionSendResult ReceiveCommandConnectionSendResult
+        , logChannelConnectionSendFailure LogChannelConnectionSendFailure
         , receiveCommandInvocationResult ReceiveCommandInvocationResult
-        , receiveEventConnectionSendResult ReceiveEventConnectionSendResult
         , applyEvents ApplyEvents
         ]

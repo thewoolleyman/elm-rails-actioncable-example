@@ -9,9 +9,9 @@ import PersistentEcho.Channels.Types
     exposing
         ( ChannelConnectedStatus
         , ChannelConnectedStatuses
-        , CommandConnectionSendResult
+        , ChannelConnectionSendFailure
+        , ChannelConnectionSendFailures
         , CommandInvocationResult
-        , EventConnectionSendResult
         )
 import PersistentEcho.Domain.Commands.Types exposing (DomainCommand, DomainCommandHistory)
 import PersistentEcho.Domain.Events.Types exposing (DomainEventHistory)
@@ -25,9 +25,8 @@ type Msg
     = ReceiveChannelConnectedStatus ChannelConnectedStatus
     | InvokeUpdateText String
     | InvokeUpdateNumber Int
-    | ReceiveCommandConnectionSendResult CommandConnectionSendResult
+    | LogChannelConnectionSendFailure ChannelConnectionSendFailure
     | ReceiveCommandInvocationResult CommandInvocationResult
-    | ReceiveEventConnectionSendResult EventConnectionSendResult
     | ApplyEvents Value
 
 
@@ -37,9 +36,8 @@ type Msg
 
 type alias Model =
     { channelConnectedStatuses : ChannelConnectedStatuses
-    , commandConnectionSendResult : CommandConnectionSendResult
+    , channelConnectionSendFailures : ChannelConnectionSendFailures
     , commandInvocationResult : CommandInvocationResult
-    , eventConnectionSendResult : EventConnectionSendResult
     , domainCommandHistory : DomainCommandHistory
     , domainEventHistory : DomainEventHistory
     , domainState : DomainState

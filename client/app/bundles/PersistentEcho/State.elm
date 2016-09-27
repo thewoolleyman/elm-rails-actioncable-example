@@ -9,9 +9,12 @@ import PersistentEcho.Ports
     exposing
         ( receiveChannelConnectedStatus
         , invokeCommandOnServer
-        , receiveCommandConnectionSendResult
+        , logChannelConnectionSendFailure
         , receiveCommandInvocationResult
-        , receiveEventConnectionSendResult
+        )
+import PersistentEcho.Channels.ConnectionSendFailures
+    exposing
+        ( initialChannelConnectionSendFailures
         )
 import PersistentEcho.Channels.Status
     exposing
@@ -46,12 +49,11 @@ import PersistentEcho.Domain.Events.Processor
 initialModel : Model
 initialModel =
     { channelConnectedStatuses = initialChannelConnectedStatuses
-    , commandConnectionSendResult = False
+    , channelConnectionSendFailures = initialChannelConnectionSendFailures
     , commandInvocationResult =
         { result = "uninitialized"
         , details = []
         }
-    , eventConnectionSendResult = False
     , domainCommandHistory = []
     , domainEventHistory = []
     , domainState = initialDomainState
@@ -105,14 +107,15 @@ update msg model =
             in
                 ( { model | channelConnectedStatuses = newChannelConnectedStatuses }, cmd )
 
-        ReceiveCommandConnectionSendResult newCommandConnectionSendResult ->
-            ( { model | commandConnectionSendResult = newCommandConnectionSendResult }, Cmd.none )
+        LogChannelConnectionSendFailure channelConnectionSendFailure ->
+            let
+                newChannelConnectionSendFailures =
+                    channelConnectionSendFailure :: model.channelConnectionSendFailures
+            in
+                ( { model | channelConnectionSendFailures = newChannelConnectionSendFailures }, Cmd.none )
 
         ReceiveCommandInvocationResult newCommandInvocationResult ->
             ( { model | commandInvocationResult = newCommandInvocationResult }, Cmd.none )
-
-        ReceiveEventConnectionSendResult newEventConnectionSendResult ->
-            ( { model | eventConnectionSendResult = newEventConnectionSendResult }, Cmd.none )
 
         ApplyEvents domainEventsValueFromPort ->
             let

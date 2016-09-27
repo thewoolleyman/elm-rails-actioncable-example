@@ -93,8 +93,9 @@ If you get Elm compilation errors, try `npm run clean`
 
 # TODO:
 
-* Per-client cable connections, so only new clients receive getEventsSince.
+* (done) Per-client cable connections, so only new clients receive getEventsSince.
   See http://edgeguides.rubyonrails.org/action_cable_overview.html#server-side-components-connections
-* Split out client connection state to sub-record and separate namespace
+* (done) Split out client connection state to sub-record and separate namespace
+* Do not attempt send outbound port requests if connection is down (test in prod_local)
 * Add coloring to connection state - green/red.
 * Make update function handle commands generically by event, not per command.
