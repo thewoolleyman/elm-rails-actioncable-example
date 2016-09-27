@@ -1,13 +1,54 @@
-module PersistentEcho.Types exposing (..)
+module PersistentEcho.Types
+    exposing
+        ( Msg(..)
+        , Model
+        , DomainState
+        )
+
+import PersistentEcho.Channels.Types
+    exposing
+        ( ChannelConnectedStatus
+        , ChannelConnectedStatuses
+        , ChannelConnectionSendFailure
+        , ChannelConnectionSendFailures
+        , CommandInvocationResult
+        )
+import PersistentEcho.Domain.Commands.Types exposing (DomainCommand, DomainCommandHistory)
+import PersistentEcho.Domain.Events.Types exposing (DomainEventHistory)
+import Json.Encode exposing (Value)
+
+
+-- Msg are in "chronological" order, in which they would occur for a command/event loop involving only one client
+
 
 type Msg
-  = Publish String
-  | ReceiveUpdate String
-  | ReceiveChannelStatus ChannelStatus
+    = ReceiveChannelConnectedStatus ChannelConnectedStatus
+    | InvokeUpdateText String
+    | InvokeUpdateNumber Int
+    | LogChannelConnectionSendFailure ChannelConnectionSendFailure
+    | ReceiveCommandInvocationResult CommandInvocationResult
+    | ApplyEvents Value
 
-type alias ChannelStatus = String
+
+
+-- top-level model
+
 
 type alias Model =
-    { channelStatus : ChannelStatus
-    , state : String
+    { channelConnectedStatuses : ChannelConnectedStatuses
+    , channelConnectionSendFailures : ChannelConnectionSendFailures
+    , commandInvocationResult : CommandInvocationResult
+    , domainCommandHistory : DomainCommandHistory
+    , domainEventHistory : DomainEventHistory
+    , domainState : DomainState
+    }
+
+
+
+-- client's copy of server domain state
+
+
+type alias DomainState =
+    { text : String
+    , integer : Int
     }

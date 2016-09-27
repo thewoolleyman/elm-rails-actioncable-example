@@ -1,18 +1,19 @@
 module PersistentEcho.App exposing (main)
 
-import PersistentEcho.Ports as Ports
-import PersistentEcho.State as State
-import PersistentEcho.View as View
+import PersistentEcho.Ports exposing (subscriptions)
+import PersistentEcho.State exposing (initialModel, initialCmds, update)
+import PersistentEcho.View exposing (page)
 import Html.App
+
 
 main : Program Never
 main =
     Html.App.program
         { init =
-            ( State.initialModel
-            , State.initialCommands
+            ( initialModel
+            , initialCmds
             )
-        , view = View.root
-        , update = State.update
-        , subscriptions = Ports.subscriptions
+        , view = page
+        , update = update
+        , subscriptions = subscriptions
         }
