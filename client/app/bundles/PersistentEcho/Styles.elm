@@ -128,3 +128,27 @@ channelStatusRowStyle =
         , ( "flex", "1 0 100px" )
         , ( "padding", "5px" )
         ]
+
+
+channelConnectedRowStyle : Attribute msg
+channelConnectedRowStyle =
+    style <|
+        [ displayFlex
+        , ( "flex-direction", "row" )
+        , ( "flex", "3 0 30px" )
+        , ( "justify-content", "space-between" )
+        ]
+
+
+greenBackgroundStyle : Attribute msg
+greenBackgroundStyle =
+    style <|
+        [ ( "background", "green" )
+        ]
+
+
+redBackgroundStyle : Attribute msg
+redBackgroundStyle =
+    style <|
+        [ ( "background", "red" )
+        ]
