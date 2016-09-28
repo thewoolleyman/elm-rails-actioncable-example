@@ -1,4 +1,4 @@
-module PersistentEcho.Utils.ReverserTest exposing (reverser)
+module PersistentEcho.Utils.ReverserTest exposing (..)
 
 import Test exposing (..)
 import Expect
@@ -7,7 +7,8 @@ import String exposing (reverse)
 import PersistentEcho.Utils.Reverser exposing (reverseIt)
 
 
-reverser =
+testReverser : Test
+testReverser =
     describe "Reverser reverseIt"
         [ describe "test"
             [ test "reverses" <|
