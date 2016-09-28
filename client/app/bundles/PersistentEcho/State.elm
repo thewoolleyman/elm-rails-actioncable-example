@@ -29,11 +29,8 @@ import PersistentEcho.Types
         )
 import PersistentEcho.Domain.Commands.Processor
     exposing
-        ( portedDomainCommand
-        , logDomainCommandToHistory
+        ( invokeCommand
         )
-import PersistentEcho.Domain.Commands.UpdateText exposing (updateText)
-import PersistentEcho.Domain.Commands.UpdateNumber exposing (updateNumber)
 import PersistentEcho.Domain.Events.Processor
     exposing
         ( decodeDomainEventsFromPort
@@ -77,25 +74,8 @@ initialDomainState =
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        InvokeUpdateText newText ->
-            let
-                updateTextCommand =
-                    updateText newText
-
-                newModel =
-                    logDomainCommandToHistory updateTextCommand model
-            in
-                ( newModel, invokeCommandOnServer (portedDomainCommand updateTextCommand) )
-
-        InvokeUpdateNumber newNumber ->
-            let
-                updateNumberCommand =
-                    updateNumber newNumber
-
-                newModel =
-                    logDomainCommandToHistory updateNumberCommand model
-            in
-                ( newModel, invokeCommandOnServer (portedDomainCommand updateNumberCommand) )
+        InvokeDomainCommand domainCommand ->
+            invokeCommand domainCommand model
 
         ReceiveChannelConnectedStatus channelConnectedStatus ->
             let

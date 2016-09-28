@@ -6,6 +6,8 @@ import PersistentEcho.Types
         , Model
         )
 import PersistentEcho.Domain.Commands.Types exposing (DomainCommand)
+import PersistentEcho.Domain.Commands.UpdateText exposing (updateText)
+import PersistentEcho.Domain.Commands.UpdateNumber exposing (updateNumber)
 import PersistentEcho.Domain.Events.Types exposing (DomainEvent)
 import PersistentEcho.Utils.Reverser exposing (reverseIt)
 import PersistentEcho.Styles exposing (..)
@@ -46,7 +48,7 @@ textualPane model =
             [ text "Textual Entity State:" ]
         , div []
             [ span [] [ text "Send the text down: " ]
-            , input [ placeholder "type some text", value model.domainState.text, onInput InvokeUpdateText ] []
+            , input [ placeholder "type some text", value model.domainState.text, onInput updateText ] []
             ]
         , div []
             [ span [] [ text "Flip it and reverse it: " ]
@@ -67,7 +69,7 @@ numericPane model =
             , span [] [ text (toString model.domainState.integer) ]
             ]
         , div []
-            [ button [ onClick (InvokeUpdateNumber model.domainState.integer) ] [ text "Increment" ]
+            [ button [ onClick (InvokeDomainCommand <| updateNumber model.domainState.integer) ] [ text "Increment" ]
             ]
         ]
 
