@@ -120,8 +120,8 @@ historyPaneStyle =
             ]
 
 
-clientStatusRowStyle : Attribute msg
-clientStatusRowStyle =
+channelStatusRowStyle : Attribute msg
+channelStatusRowStyle =
     style <|
         [ border
         , ( "background", lightblue )
