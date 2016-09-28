@@ -5,6 +5,7 @@ import PersistentEcho.Types
         ( Msg(..)
         , Model
         )
+import PersistentEcho.Channels.View exposing (channelStatusRow)
 import PersistentEcho.Domain.Commands.Types exposing (DomainCommand)
 import PersistentEcho.Domain.Commands.UpdateText exposing (updateText)
 import PersistentEcho.Domain.Commands.UpdateNumber exposing (updateNumber)
@@ -23,7 +24,7 @@ page model =
         [ headerRow model
         , domainStateRow model
         , historyRow model
-        , clientStatusRow model
+        , channelStatusRow model
         ]
 
 
@@ -110,27 +111,3 @@ eventHistoryRows : List DomainEvent -> Html Msg
 eventHistoryRows domainEvents =
     div []
         (map (\domainEvent -> div [] [ text <| toString domainEvent ]) domainEvents)
-
-
-clientStatusRow : Model -> Html Msg
-clientStatusRow model =
-    div [ clientStatusRowStyle ]
-        [ div []
-            [ span []
-                [ text "Websocket Channel Connected Statuses: "
-                , text <| toString model.channelConnectedStatuses
-                ]
-            ]
-        , div []
-            [ span []
-                [ text "Websocket Command Channel Connection.send Failures: "
-                , text (toString model.channelConnectionSendFailures)
-                ]
-            ]
-        , div []
-            [ span []
-                [ text "Last Websocket Command Channel Invocation Result: "
-                , text (toString model.commandInvocationResult)
-                ]
-            ]
-        ]
