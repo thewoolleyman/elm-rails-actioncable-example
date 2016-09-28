@@ -1,4 +1,4 @@
-module PersistentEcho.Domain.Commands.Processor exposing (..)
+module PersistentEcho.Domain.Commands.Processor exposing (invokeCommand)
 
 import PersistentEcho.Ports exposing (invokeCommandOnServer)
 import PersistentEcho.Types
@@ -11,10 +11,10 @@ import PersistentEcho.Domain.Commands.Types
         ( DomainCommand
         , DomainCommand(..)
         )
+import PersistentEcho.Domain.Commands.Encoder exposing (portedDomainCommand)
 import PersistentEcho.Domain.Commands.UpdateText exposing (updateText)
 import PersistentEcho.Domain.Commands.UpdateNumber exposing (updateNumber)
 import List exposing (map)
-import Json.Encode exposing (..)
 
 
 {-|
@@ -37,45 +37,6 @@ invokeCommand domainCommand model =
                     logDomainCommandToHistory domainCommand model
             in
                 ( newModel, invokeCommandOnServer (portedDomainCommand domainCommand) )
-
-
-portedDomainCommand : DomainCommand -> Value
-portedDomainCommand domainCommand =
-    case domainCommand of
-        UpdateTextCommand command ->
-            let
-                dataValue =
-                    object
-                        [ ( "text", string command.data.text )
-                        ]
-            in
-                jsonDomainCommand command.name dataValue
-
-        -- TODO: Duplication here
-        UpdateNumberCommand command ->
-            let
-                dataValue =
-                    object
-                        [ ( "integer", int command.data.integer )
-                        ]
-            in
-                jsonDomainCommand command.name dataValue
-
-
-
--- TODO: Duplication here
-
-
-jsonDomainCommand : String -> Value -> Value
-jsonDomainCommand name dataObject =
-    let
-        jsonValue =
-            object
-                [ ( "name", string name )
-                , ( "data", dataObject )
-                ]
-    in
-        jsonValue
 
 
 logDomainCommandToHistory : DomainCommand -> Model -> Model
