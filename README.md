@@ -93,5 +93,4 @@ If you get Elm compilation errors, try `npm run clean`
 
 # TODO:
 
-* Add coloring to connection state - green/red.
-* fill out tests
+* Use Maybe instead of "uninitialized"
