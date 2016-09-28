@@ -131,7 +131,7 @@ applyDomainEvents domainEvents domainState domainEventHistory =
 
 
 {-|
-    TODO: How to not expose the union type constructors, as recommended by
+    NOTE: union type constructors are not exposed outside of this module, as recommended by
      http://package.elm-lang.org/help/design-guidelines#keep-tags-and-record-constructors-secret
 -}
 processEvent : DomainEvent -> DomainState -> DomainState
