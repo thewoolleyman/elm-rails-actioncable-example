@@ -33,11 +33,10 @@ import PersistentEcho.Domain.Commands.Processor
         )
 import PersistentEcho.Domain.Events.Processor
     exposing
-        ( decodeDomainEventsFromPort
-        , processEvent
-        , applyDomainEvents
+        ( applyDomainEvents
         , latestDomainEventSequence
         )
+import PersistentEcho.Domain.Events.Decoder exposing (decodeDomainEventsFromPort)
 
 
 -- See https://gist.github.com/evancz/2b2ba366cae1887fe621 for state architecture guidelines
