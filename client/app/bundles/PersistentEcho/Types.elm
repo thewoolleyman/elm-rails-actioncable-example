@@ -23,8 +23,7 @@ import Json.Encode exposing (Value)
 
 type Msg
     = ReceiveChannelConnectedStatus ChannelConnectedStatus
-    | InvokeUpdateText String
-    | InvokeUpdateNumber Int
+    | InvokeDomainCommand DomainCommand
     | LogChannelConnectionSendFailure ChannelConnectionSendFailure
     | ReceiveCommandInvocationResult CommandInvocationResult
     | ApplyEvents Value

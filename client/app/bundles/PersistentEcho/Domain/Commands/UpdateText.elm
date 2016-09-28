@@ -1,5 +1,6 @@
 module PersistentEcho.Domain.Commands.UpdateText exposing (updateText)
 
+import PersistentEcho.Types exposing (Msg(..))
 import PersistentEcho.Domain.Commands.Types
     exposing
         ( DomainCommand
@@ -7,9 +8,10 @@ import PersistentEcho.Domain.Commands.Types
         )
 
 
-updateText : String -> DomainCommand
+updateText : String -> Msg
 updateText newText =
-    UpdateTextCommand
-        { name = "UpdateText"
-        , data = { text = newText }
-        }
+    InvokeDomainCommand <|
+        UpdateTextCommand
+            { name = "UpdateText"
+            , data = { text = newText }
+            }
