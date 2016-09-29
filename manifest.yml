@@ -1,0 +1,7 @@
+---
+applications:
+- name: erae
+  memory: 512M
+  host: erae
+  services:
+   - erae-staging
