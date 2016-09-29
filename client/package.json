@@ -21,14 +21,13 @@
   },
   "homepage": "https://github.com/thewoolleyman/elm-rails-actioncable-example",
   "scripts": {
-    "postinstall": "`npm bin`/elm-package install -y",
-    "build:prod.client": "NODE_ENV=production webpack --config webpack.static.config.js",
-    "build:dev:client": "babel-node server-hot.js",
-    "clean": "rm -rf elm-stuff/build-artifacts",
-    "compilechecktotmp": "npm run clean && `npm bin`/elm-make app/bundles/PersistentEcho/App.elm --output /tmp/index.html",
-    "pretest": "`npm bin`/elm-make app/bundles/Test/Suite.elm --output app/bundles/Test/Suite.js",
-    "tdd": "watch npm test",
-    "test": "node app/bundles/Test/Suite.js"
+    "build": "npm run clean && NODE_ENV=production webpack --config webpack.static.config.js",
+    "start": "npm run clean && babel-node server-hot.js",
+    "tdd": "onchange './app/**/*.elm' -- npm test",
+    "test": "elm-test app/bundles/PersistentEcho/tests/Suite.elm",
+    "clean": "rm -rf ../app/assets/webpack/* && rm -rf ../public/assets",
+    "postinstall": "rm -rf ./elm-stuff && `npm bin`/elm-package install -y"
+
   },
   "dependencies": {
     "babel-cli": "^6.3.17",
@@ -38,6 +37,8 @@
     "webpack": "^1.12.8"
   },
   "devDependencies": {
+    "elm-test": "^0.17.3",
+    "onchange": "^2.4.0",
     "webpack-dev-server": "^1.12.1"
   }
 }

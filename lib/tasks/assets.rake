@@ -13,7 +13,7 @@ namespace :assets do
 
   desc "Compile assets with webpack"
   task :webpack do
-    sh "cd client && npm run build:prod.client"
+    sh "cd client && npm run build"
     sh "mkdir -p public/assets"
   end
 

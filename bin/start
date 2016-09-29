@@ -2,7 +2,5 @@
 
 set -e
 
-# ensure any precompiled assets are removed, so they don't get loaded
-rm -rf public/assets
 bin/spring stop
 bin/foreman start -f Procfile.dev

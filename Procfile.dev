@@ -1,2 +1,2 @@
 rails: PORT=3000 rails s -b 127.0.0.1
-rails-assets: sh -c 'rm -f app/assets/webpack/* && npm run build:dev:client'
+rails-assets: npm start
