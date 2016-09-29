@@ -36,7 +36,7 @@ type Msg
 type alias Model =
     { channelConnectedStatuses : ChannelConnectedStatuses
     , channelConnectionSendFailures : ChannelConnectionSendFailures
-    , commandInvocationResult : CommandInvocationResult
+    , commandInvocationResult : Maybe CommandInvocationResult
     , domainCommandHistory : DomainCommandHistory
     , domainEventHistory : DomainEventHistory
     , domainState : DomainState

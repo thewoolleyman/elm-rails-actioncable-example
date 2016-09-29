@@ -46,10 +46,7 @@ initialModel : Model
 initialModel =
     { channelConnectedStatuses = initialChannelConnectedStatuses
     , channelConnectionSendFailures = initialChannelConnectionSendFailures
-    , commandInvocationResult =
-        { result = "uninitialized"
-        , details = []
-        }
+    , commandInvocationResult = Nothing
     , domainCommandHistory = []
     , domainEventHistory = []
     , domainState = initialDomainState
@@ -94,7 +91,7 @@ update msg model =
                 ( { model | channelConnectionSendFailures = newChannelConnectionSendFailures }, Cmd.none )
 
         ReceiveCommandInvocationResult newCommandInvocationResult ->
-            ( { model | commandInvocationResult = newCommandInvocationResult }, Cmd.none )
+            ( { model | commandInvocationResult = Just newCommandInvocationResult }, Cmd.none )
 
         ApplyEvents domainEventsValueFromPort ->
             let

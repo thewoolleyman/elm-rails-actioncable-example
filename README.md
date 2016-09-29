@@ -93,4 +93,4 @@ If you get Elm compilation errors, try `npm run clean`
 
 # TODO:
 
-* Use Maybe instead of "uninitialized"
+* Clean up build/packaging/tests.
