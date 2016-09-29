@@ -73,8 +73,8 @@ SKIP_EAGER_LOAD=true SKIP_CACHE_CLASSES=true bin/start-local-prod
 
 ## Running Elm Test Suite
 
-* `npm test` (run and exit, for use in CI)
-* `npm run tdd` ("autorunner", requires `brew install watch`)
+* `npm test` (run tests and exit, for use in CI)
+* `npm tdd` (resident test autorunner)
 
 If you get Elm compilation errors, try `npm run clean`
 
@@ -90,7 +90,3 @@ If you get Elm compilation errors, try `npm run clean`
 
 * Ensure proper ruby/rails version is being used
 * `rails new elm-rails-actioncable-example --api --no-skip-action-cable --skip-test --skip-action-mailer`
-
-# TODO:
-
-* Clean up build/packaging/tests.
