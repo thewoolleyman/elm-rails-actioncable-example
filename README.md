@@ -90,3 +90,10 @@ If you get Elm compilation errors, try `npm run clean`
 
 * Ensure proper ruby/rails version is being used
 * `rails new elm-rails-actioncable-example --api --no-skip-action-cable --skip-test --skip-action-mailer`
+
+# TODO:
+
+* More test organization and tests: import App to get full compilation, add suites
+* Keep history of command failures, only display count and last one
+* Can add and delete multiple textual entities
+* Can add and delete multiple numeric entities
