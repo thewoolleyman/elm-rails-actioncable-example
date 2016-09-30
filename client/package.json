@@ -23,7 +23,9 @@
   "scripts": {
     "postinstall": "`npm bin`/elm-package install -y",
     "build:prod.client": "NODE_ENV=production webpack --config webpack.static.config.js",
-    "build:dev:client": "babel-node server-hot.js"
+    "build:dev:client": "babel-node server-hot.js",
+    "pretest": "`npm bin`/elm-make app/bundles/Test/Suite.elm --output app/bundles/Test/Suite.js",
+    "test": "node app/bundles/Test/Suite.js"
   },
   "dependencies": {
     "babel-cli": "^6.3.17",
