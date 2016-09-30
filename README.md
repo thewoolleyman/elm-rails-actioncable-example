@@ -93,6 +93,7 @@ If you get Elm compilation errors, try `npm run clean`
 
 # TODO:
 
+* Add submit button / spinner to text field
 * More test organization and tests: import App to get full compilation, add suites
 * Keep history of command failures, only display count and last one
 * Can add and delete multiple textual entities
