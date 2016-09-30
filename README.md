@@ -44,6 +44,10 @@ initdb /usr/local/var/postgres -E utf8
 
 (Note: Foreman defaults to using port 5000)
 
+* `RAILS_ENV=production rake db:create`
+* `RAILS_ENV=production rake db:migrate`
+* In a new terminal: `tail -f log/*`
+
 ```
 bin/start-local-prod
 ```
