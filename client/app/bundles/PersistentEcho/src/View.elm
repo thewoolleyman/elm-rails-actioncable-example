@@ -31,7 +31,11 @@ page model =
 headerRow : Model -> Html Msg
 headerRow model =
     div [ headerRowStyle ]
-        [ span [] [ text "Elm, Rails, ActionCable, Command Query Responsibility Segregation, Event Sourcing" ] ]
+        [ span []
+            [ a [ href "https://github.com/thewoolleyman/elm-rails-actioncable-example", target "_" ]
+                [ text "Elm, Rails, ActionCable, Command Query Responsibility Segregation, Event Sourcing" ]
+            ]
+        ]
 
 
 domainStateRow : Model -> Html Msg
