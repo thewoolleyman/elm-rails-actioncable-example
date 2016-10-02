@@ -78,6 +78,9 @@ SKIP_EAGER_LOAD=true SKIP_CACHE_CLASSES=true bin/start-local-prod
 
 If you get Elm compilation errors, try `npm run clean`
 
+NOTE: Tests are not comprehensive.  They are mostly to show an example
+of testing in Elm.
+
 ## Deploying to CloudFoundry
 
 * `cf login`, enter email, password, org, and space.
