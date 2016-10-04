@@ -5,7 +5,7 @@ module Domain.Events.Processor
         , latestDomainEventSequence
         )
 
-import Types exposing (DomainState)
+import Domain.Types exposing (DomainState)
 import Domain.Events.Types
     exposing
         ( DomainEvent
@@ -20,8 +20,6 @@ import Domain.Events.TextUpdated exposing (textUpdated)
 import Domain.Events.NumberUpdated exposing (numberUpdated)
 import List exposing (foldl, head)
 import Maybe exposing (withDefault, map)
-import Json.Encode exposing (Value)
-import Json.Decode.Extra exposing ((|:))
 import Json.Decode
     exposing
         ( Decoder

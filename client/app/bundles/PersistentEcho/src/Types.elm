@@ -2,7 +2,6 @@ module Types
     exposing
         ( Msg(..)
         , Model
-        , DomainState
         )
 
 import Channels.Types
@@ -13,6 +12,7 @@ import Channels.Types
         , ChannelConnectionSendFailures
         , CommandInvocationResult
         )
+import Domain.Types exposing (DomainState)
 import Domain.Commands.Types exposing (DomainCommand, DomainCommandHistory)
 import Domain.Events.Types exposing (DomainEventHistory)
 import Json.Encode exposing (Value)
@@ -40,14 +40,4 @@ type alias Model =
     , domainCommandHistory : DomainCommandHistory
     , domainEventHistory : DomainEventHistory
     , domainState : DomainState
-    }
-
-
-
--- client's copy of server domain state
-
-
-type alias DomainState =
-    { text : String
-    , integer : Int
     }

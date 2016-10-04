@@ -25,7 +25,10 @@ import Types
     exposing
         ( Msg(..)
         , Model
-        , DomainState
+        )
+import Domain.Types
+    exposing
+        ( DomainState
         )
 import Domain.Commands.Processor
     exposing

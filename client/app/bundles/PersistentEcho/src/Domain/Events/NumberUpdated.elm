@@ -1,6 +1,6 @@
 module Domain.Events.NumberUpdated exposing (numberUpdated)
 
-import Types exposing (DomainState)
+import Domain.Types exposing (DomainState)
 
 
 numberUpdated : Int -> DomainState -> DomainState
