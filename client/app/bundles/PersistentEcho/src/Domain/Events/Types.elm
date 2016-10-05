@@ -23,7 +23,7 @@ type alias DomainEventHistory =
 
 
 type alias DomainEvent =
-    { id : Id
+    { eventId : Id
     , sequence : Sequence
     , data : EventData
     }
@@ -53,7 +53,7 @@ type alias NumericEntityUpdatedEventData =
 
 invalidDomainEvent : String -> DomainEvent
 invalidDomainEvent errorMessage =
-    { id = ""
+    { eventId = ""
     , sequence = -1
     , data = Invalid errorMessage
     }

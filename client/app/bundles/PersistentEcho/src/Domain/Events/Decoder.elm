@@ -52,7 +52,7 @@ eventsDecoder =
 eventDecoder : Decoder DomainEvent
 eventDecoder =
     object3 DomainEvent
-        ("id" := string)
+        ("eventId" := string)
         ("sequence" := int)
         eventDataDecoder
 

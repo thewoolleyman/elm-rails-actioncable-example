@@ -12,7 +12,7 @@ textualEntityUpdatedJson : Value
 textualEntityUpdatedJson =
     list <|
         [ object
-            [ ( "id", string "abc123" )
+            [ ( "eventId", string "abc123" )
             , ( "type", string "TextualEntityUpdated" )
             , ( "sequence", int 1 )
             , ( "data"
@@ -28,7 +28,7 @@ numericEntityUpdatedJson : Value
 numericEntityUpdatedJson =
     list <|
         [ object
-            [ ( "id", string "def456" )
+            [ ( "eventId", string "def456" )
             , ( "type", string "NumericEntityUpdated" )
             , ( "sequence", int 2 )
             , ( "data"
@@ -47,7 +47,7 @@ testTextualEntityParsing =
             \() ->
                 decodeDomainEventsFromPort textualEntityUpdatedJson
                     |> Expect.equal
-                        [ { id = "abc123"
+                        [ { eventId = "abc123"
                           , sequence = 1
                           , data = textualEntityUpdatedEventData "my text"
                           }
@@ -62,7 +62,7 @@ testNumericEntityParsing =
             \() ->
                 decodeDomainEventsFromPort numericEntityUpdatedJson
                     |> Expect.equal
-                        [ { id = "def456"
+                        [ { eventId = "def456"
                           , sequence = 2
                           , data = numericEntityUpdatedEventData 42
                           }

@@ -15,7 +15,7 @@ class EventsSinceChannel < ApplicationCable::Channel
     events = Event.where('sequence > ?', sequence.fetch('data')).order(:sequence)
     events_payload = events.map do |event|
       {
-        id: event.id.to_s,
+        eventId: event.id.to_s,
         sequence: event.sequence,
         type: event.type,
         data: JSON.load(event.data),
