@@ -1,22 +1,9 @@
 module Domain.View exposing (domainStateRow)
 
-import Types
-    exposing
-        ( Msg(..)
-          --        , Model
-        )
-
-
---import Channels.View exposing (channelStatusRow)
---import Domain.Commands.Types exposing (DomainCommand)
-
+import Types exposing (Msg(..))
 import Domain.Commands.UpdateText exposing (updateText)
 import Domain.Commands.UpdateNumber exposing (updateNumber)
 import Domain.Types exposing (DomainState, TextualEntity, NumericEntity)
-
-
---import Domain.Events.Types exposing (DomainEvent)
-
 import Utils.Reverser exposing (reverseIt)
 import Styles exposing (..)
 import Html exposing (..)
