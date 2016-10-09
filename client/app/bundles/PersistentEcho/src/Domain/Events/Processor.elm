@@ -62,10 +62,10 @@ processEvent domainEvent domainState =
     in
         case eventData of
             TextualEntityUpdated data ->
-                textUpdated data.text domainState
+                textUpdated data domainState
 
             NumericEntityUpdated data ->
-                numberUpdated data.integer domainState
+                numberUpdated data domainState
 
             Invalid msg ->
                 Debug.crash ("Unable to process invalid domain event: " ++ msg)

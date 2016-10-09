@@ -17,7 +17,8 @@ textualEntityUpdatedJson =
             , ( "sequence", int 1 )
             , ( "data"
               , object
-                    [ ( "text", string "my text" )
+                    [ ( "entityId", string "textualEntity1" )
+                    , ( "text", string "my text" )
                     ]
               )
             ]
@@ -33,7 +34,8 @@ numericEntityUpdatedJson =
             , ( "sequence", int 2 )
             , ( "data"
               , object
-                    [ ( "integer", int 42 )
+                    [ ( "entityId", string "numericEntity1" )
+                    , ( "integer", int 42 )
                     ]
               )
             ]
@@ -49,7 +51,7 @@ testTextualEntityParsing =
                     |> Expect.equal
                         [ { eventId = "abc123"
                           , sequence = 1
-                          , data = textualEntityUpdatedEventData "my text"
+                          , data = textualEntityUpdatedEventData "textualEntity1" "my text"
                           }
                         ]
         ]
@@ -64,7 +66,7 @@ testNumericEntityParsing =
                     |> Expect.equal
                         [ { eventId = "def456"
                           , sequence = 2
-                          , data = numericEntityUpdatedEventData 42
+                          , data = numericEntityUpdatedEventData "numericEntity1" 42
                           }
                         ]
         ]

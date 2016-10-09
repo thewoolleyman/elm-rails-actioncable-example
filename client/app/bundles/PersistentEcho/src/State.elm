@@ -65,8 +65,16 @@ initialCmds =
 
 initialDomainState : DomainState
 initialDomainState =
-    { text = ""
-    , integer = 0
+    { textualEntities =
+        [ { entityId = "1"
+          , text = ""
+          }
+        ]
+    , numericEntities =
+        [ { entityId = "1"
+          , integer = 0
+          }
+        ]
     }
 
 

@@ -1,6 +1,9 @@
 module Domain.Types
     exposing
         ( DomainState
+        , Entity
+        , TextualEntity
+        , NumericEntity
         )
 
 {-
@@ -13,6 +16,22 @@ module Domain.Types
 
 
 type alias DomainState =
-    { text : String
-    , integer : Int
+    { textualEntities : List TextualEntity
+    , numericEntities : List NumericEntity
     }
+
+
+type alias Entity a =
+    { a | entityId : String }
+
+
+type alias TextualEntity =
+    Entity
+        { text : String
+        }
+
+
+type alias NumericEntity =
+    Entity
+        { integer : Int
+        }

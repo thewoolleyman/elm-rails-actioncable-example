@@ -88,7 +88,7 @@ eventDataDecoderForEventType eventType =
 
 
 {-|
-    Note: this uses the standard Elm Json.Decode library approach using `object1` and `:=`
+    Note: this uses the standard Elm Json.Decode library approach using `objectN` and `:=`
 -}
 textualEntityUpdatedEventDataDecoder : Decoder EventData
 textualEntityUpdatedEventDataDecoder =

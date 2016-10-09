@@ -9,20 +9,21 @@ import Channels.View exposing (channelStatusRow)
 import Domain.Commands.Types exposing (DomainCommand)
 import Domain.Commands.UpdateText exposing (updateText)
 import Domain.Commands.UpdateNumber exposing (updateNumber)
+import Domain.Types exposing (DomainState, TextualEntity, NumericEntity)
 import Domain.Events.Types exposing (DomainEvent)
 import Utils.Reverser exposing (reverseIt)
 import Styles exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput, onClick)
-import List exposing (map)
+import List exposing (head, map)
 
 
 page : Model -> Html Msg
 page model =
     div [ pageStyle ]
         [ headerRow model
-        , domainStateRow model
+        , domainStateRow model.domainState
         , historyRow model
         , channelStatusRow model
         ]
@@ -38,43 +39,70 @@ headerRow model =
         ]
 
 
-domainStateRow : Model -> Html Msg
-domainStateRow model =
-    div [ domainStateRowStyle ]
-        [ textualPane model
-        , numericPane model
-        ]
+
+-- TODO: Move to Domain.View module
 
 
-textualPane : Model -> Html Msg
-textualPane model =
+domainStateRow : DomainState -> Html Msg
+domainStateRow domainState =
+    let
+        textualEntity =
+            head domainState.textualEntities
+
+        textualPaneContent =
+            case textualEntity of
+                Just entity ->
+                    textualPane entity
+
+                Nothing ->
+                    div [ textualPaneStyle ] [ text "No Textual Entities" ]
+
+        numericEntity =
+            head domainState.numericEntities
+
+        numericPaneContent =
+            case numericEntity of
+                Just entity ->
+                    numericPane entity
+
+                Nothing ->
+                    div [ numericPaneStyle ] [ text "No Numeric Entities" ]
+    in
+        div [ domainStateRowStyle ]
+            [ textualPaneContent
+            , numericPaneContent
+            ]
+
+
+textualPane : TextualEntity -> Html Msg
+textualPane textualEntity =
     div [ textualPaneStyle ]
         [ div []
             [ text "Textual Entity State:" ]
         , div []
             [ span [] [ text "Send the text down: " ]
-            , input [ placeholder "type some text", value model.domainState.text, onInput updateText ] []
+            , input [ placeholder "type some text", value textualEntity.text, onInput updateText ] []
             ]
         , div []
             [ span [] [ text "Flip it and reverse it: " ]
             , span []
-                [ a [ href "https://youtu.be/UODX_pYpVxk", target "_" ] [ text (reverseIt model.domainState.text) ]
+                [ a [ href "https://youtu.be/UODX_pYpVxk", target "_" ] [ text (reverseIt textualEntity.text) ]
                 ]
             ]
         ]
 
 
-numericPane : Model -> Html Msg
-numericPane model =
+numericPane : NumericEntity -> Html Msg
+numericPane numericEntity =
     div [ numericPaneStyle ]
         [ div []
             [ text "Numeric Entity State:" ]
         , div []
             [ span [] [ text "The number is currently: " ]
-            , span [] [ text (toString model.domainState.integer) ]
+            , span [] [ text (toString numericEntity.integer) ]
             ]
         , div []
-            [ button [ onClick (InvokeDomainCommand <| updateNumber model.domainState.integer) ] [ text "Increment" ]
+            [ button [ onClick (InvokeDomainCommand <| updateNumber numericEntity.integer) ] [ text "Increment" ]
             ]
         ]
 
