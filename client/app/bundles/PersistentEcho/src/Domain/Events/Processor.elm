@@ -16,8 +16,8 @@ import Domain.Events.Types
         , textualEntityUpdatedEventData
         , numericEntityUpdatedEventData
         )
-import Domain.Events.TextUpdated exposing (textUpdated)
-import Domain.Events.NumberUpdated exposing (numberUpdated)
+import Domain.Events.TextualEntityUpdated exposing (textualEntityUpdated)
+import Domain.Events.NumericEntityUpdated exposing (numericEntityUpdated)
 import List exposing (foldl, head)
 import Maybe exposing (withDefault, map)
 import Json.Decode
@@ -61,11 +61,11 @@ processEvent domainEvent domainState =
             domainEvent.data
     in
         case eventData of
-            TextualEntityUpdated data ->
-                textUpdated data domainState
+            TextualEntityUpdatedEventData data ->
+                textualEntityUpdated data domainState
 
-            NumericEntityUpdated data ->
-                numberUpdated data domainState
+            NumericEntityUpdatedEventData data ->
+                numericEntityUpdated data domainState
 
             Invalid msg ->
                 Debug.crash ("Unable to process invalid domain event: " ++ msg)

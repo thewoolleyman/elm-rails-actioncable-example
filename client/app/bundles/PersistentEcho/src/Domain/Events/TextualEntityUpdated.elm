@@ -1,11 +1,11 @@
-module Domain.Events.TextUpdated exposing (textUpdated)
+module Domain.Events.TextualEntityUpdated exposing (textualEntityUpdated)
 
 import Domain.Types exposing (DomainState, TextualEntity)
 import Domain.ListUtils exposing (updateEntityHavingId)
 
 
-textUpdated : TextualEntity -> DomainState -> DomainState
-textUpdated newTextualEntity domainState =
+textualEntityUpdated : TextualEntity -> DomainState -> DomainState
+textualEntityUpdated newTextualEntity domainState =
     let
         updaterWithUpdates =
             updater newTextualEntity

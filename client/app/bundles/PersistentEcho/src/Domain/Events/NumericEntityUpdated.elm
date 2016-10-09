@@ -1,11 +1,11 @@
-module Domain.Events.NumberUpdated exposing (numberUpdated)
+module Domain.Events.NumericEntityUpdated exposing (numericEntityUpdated)
 
 import Domain.Types exposing (DomainState, NumericEntity)
 import Domain.ListUtils exposing (updateEntityHavingId)
 
 
-numberUpdated : NumericEntity -> DomainState -> DomainState
-numberUpdated newNumericEntity domainState =
+numericEntityUpdated : NumericEntity -> DomainState -> DomainState
+numericEntityUpdated newNumericEntity domainState =
     let
         updaterWithUpdates =
             updater newNumericEntity

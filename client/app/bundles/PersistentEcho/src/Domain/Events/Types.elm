@@ -40,8 +40,8 @@ type alias Sequence =
 
 
 type EventData
-    = TextualEntityUpdated TextualEntity
-    | NumericEntityUpdated NumericEntity
+    = TextualEntityUpdatedEventData TextualEntity
+    | NumericEntityUpdatedEventData NumericEntity
     | Invalid String
 
 
@@ -65,7 +65,7 @@ textualEntityUpdatedEventData entityId text =
         eventData =
             { entityId = entityId, text = text }
     in
-        TextualEntityUpdated eventData
+        TextualEntityUpdatedEventData eventData
 
 
 numericEntityUpdatedEventData : String -> Int -> EventData
@@ -74,4 +74,4 @@ numericEntityUpdatedEventData entityId integer =
         eventData =
             { entityId = entityId, integer = integer }
     in
-        NumericEntityUpdated eventData
+        NumericEntityUpdatedEventData eventData
