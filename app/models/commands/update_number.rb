@@ -11,6 +11,7 @@ module Commands
       # generate event
       event = ::NumericEntityUpdated.new(
         data: JSON.generate({
+          entityId: entity.id.to_s,
           integer: entity.integer,
         })
       )

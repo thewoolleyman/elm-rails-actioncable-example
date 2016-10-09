@@ -11,6 +11,7 @@ module Commands
       # generate event
       event = ::TextualEntityUpdated.new(
         data: JSON.generate({
+          entityId: entity.id.to_s,
           text: entity.text,
         })
       )

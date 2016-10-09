@@ -84,7 +84,7 @@ eventDataDecoderForEventType eventType =
             numericEntityUpdatedEventDataDecoder
 
         _ ->
-            fail ("Invalid domain event type received. Error message: '" ++ eventType ++ "'")
+            fail ("Invalid domain event type received. Event Type was: '" ++ eventType ++ "'")
 
 
 {-|
@@ -92,7 +92,9 @@ eventDataDecoderForEventType eventType =
 -}
 textualEntityUpdatedEventDataDecoder : Decoder EventData
 textualEntityUpdatedEventDataDecoder =
-    object1 textualEntityUpdatedEventData ("text" := string)
+    object2 textualEntityUpdatedEventData
+        ("entityId" := string)
+        ("text" := string)
 
 
 {-|
@@ -102,4 +104,5 @@ textualEntityUpdatedEventDataDecoder =
 numericEntityUpdatedEventDataDecoder : Decoder EventData
 numericEntityUpdatedEventDataDecoder =
     succeed numericEntityUpdatedEventData
+        |: ("entityId" := string)
         |: ("integer" := int)

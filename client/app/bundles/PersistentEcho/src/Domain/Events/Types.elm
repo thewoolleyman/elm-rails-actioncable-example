@@ -38,17 +38,21 @@ type alias Sequence =
 
 
 type EventData
-    = TextualEntityUpdated String
-    | NumericEntityUpdated Int
+    = TextualEntityUpdated TextualEntityUpdatedEventData
+    | NumericEntityUpdated NumericEntityUpdatedEventData
     | Invalid String
 
 
 type alias TextualEntityUpdatedEventData =
-    { text : String }
+    { entityId : String
+    , text : String
+    }
 
 
 type alias NumericEntityUpdatedEventData =
-    { integer : Int }
+    { entityId : String
+    , integer : Int
+    }
 
 
 invalidDomainEvent : String -> DomainEvent
@@ -59,11 +63,19 @@ invalidDomainEvent errorMessage =
     }
 
 
-textualEntityUpdatedEventData : String -> EventData
-textualEntityUpdatedEventData text =
-    TextualEntityUpdated text
+textualEntityUpdatedEventData : String -> String -> EventData
+textualEntityUpdatedEventData entityId text =
+    let
+        eventData =
+            TextualEntityUpdatedEventData entityId text
+    in
+        TextualEntityUpdated eventData
 
 
-numericEntityUpdatedEventData : Int -> EventData
-numericEntityUpdatedEventData integer =
-    NumericEntityUpdated integer
+numericEntityUpdatedEventData : String -> Int -> EventData
+numericEntityUpdatedEventData entityId integer =
+    let
+        eventData =
+            NumericEntityUpdatedEventData entityId integer
+    in
+        NumericEntityUpdated eventData

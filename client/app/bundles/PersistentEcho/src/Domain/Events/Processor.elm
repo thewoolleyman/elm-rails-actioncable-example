@@ -61,14 +61,14 @@ processEvent domainEvent domainState =
             domainEvent.data
     in
         case eventData of
-            TextualEntityUpdated text ->
-                textUpdated text domainState
+            TextualEntityUpdated data ->
+                textUpdated data.text domainState
 
-            NumericEntityUpdated integer ->
-                numberUpdated integer domainState
+            NumericEntityUpdated data ->
+                numberUpdated data.integer domainState
 
             Invalid msg ->
-                domainState
+                Debug.crash ("Unable to process invalid domain event: " ++ msg)
 
 
 logDomainEventToHistory : DomainEvent -> DomainEventHistory -> DomainEventHistory
