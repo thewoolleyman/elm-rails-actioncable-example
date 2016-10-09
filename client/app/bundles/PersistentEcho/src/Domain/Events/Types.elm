@@ -9,6 +9,8 @@ module Domain.Events.Types
         , numericEntityUpdatedEventData
         )
 
+import Domain.Types exposing (TextualEntity, NumericEntity)
+
 
 type alias DomainEventHistory =
     List DomainEvent
@@ -38,21 +40,9 @@ type alias Sequence =
 
 
 type EventData
-    = TextualEntityUpdated TextualEntityUpdatedEventData
-    | NumericEntityUpdated NumericEntityUpdatedEventData
+    = TextualEntityUpdated TextualEntity
+    | NumericEntityUpdated NumericEntity
     | Invalid String
-
-
-type alias TextualEntityUpdatedEventData =
-    { entityId : String
-    , text : String
-    }
-
-
-type alias NumericEntityUpdatedEventData =
-    { entityId : String
-    , integer : Int
-    }
 
 
 invalidDomainEvent : String -> DomainEvent
@@ -63,11 +53,17 @@ invalidDomainEvent errorMessage =
     }
 
 
+
+{-
+   TODO: Why can't this use the parameter style of creating a record, e.g.: eventData = TextualEntity entityId integer
+-}
+
+
 textualEntityUpdatedEventData : String -> String -> EventData
 textualEntityUpdatedEventData entityId text =
     let
         eventData =
-            TextualEntityUpdatedEventData entityId text
+            { entityId = entityId, text = text }
     in
         TextualEntityUpdated eventData
 
@@ -76,6 +72,6 @@ numericEntityUpdatedEventData : String -> Int -> EventData
 numericEntityUpdatedEventData entityId integer =
     let
         eventData =
-            NumericEntityUpdatedEventData entityId integer
+            { entityId = entityId, integer = integer }
     in
         NumericEntityUpdated eventData
