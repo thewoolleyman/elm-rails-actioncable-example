@@ -12,8 +12,8 @@ import Domain.Commands.Types
         , DomainCommand(..)
         )
 import Domain.Commands.Encoder exposing (portedDomainCommand)
-import Domain.Commands.UpdateText exposing (updateText)
-import Domain.Commands.UpdateNumber exposing (updateNumber)
+import Domain.Commands.UpdateTextualEntity exposing (updateTextualEntity)
+import Domain.Commands.UpdateNumericEntity exposing (updateNumericEntity)
 import List exposing (map)
 
 
@@ -24,14 +24,14 @@ import List exposing (map)
 invokeCommand : DomainCommand -> Model -> ( Model, Cmd Msg )
 invokeCommand domainCommand model =
     case domainCommand of
-        UpdateTextCommand command ->
+        UpdateTextualEntityCommand command ->
             let
                 newModel =
                     logDomainCommandToHistory domainCommand model
             in
                 ( newModel, invokeCommandOnServer (portedDomainCommand domainCommand) )
 
-        UpdateNumberCommand command ->
+        UpdateNumericEntityCommand command ->
             let
                 newModel =
                     logDomainCommandToHistory domainCommand model

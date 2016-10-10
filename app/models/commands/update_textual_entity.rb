@@ -1,5 +1,5 @@
 module Commands
-  class UpdateText
+  class UpdateTextualEntity
     def invoke(data)
       entity = TextualEntity.find_by_id(1)
       unless entity

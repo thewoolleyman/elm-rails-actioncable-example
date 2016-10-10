@@ -1,5 +1,5 @@
 module Commands
-  class UpdateNumber
+  class UpdateNumericEntity
     def invoke(data)
       entity = NumericEntity.find_by_id(1)
       unless entity
