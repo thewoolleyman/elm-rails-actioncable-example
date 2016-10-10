@@ -12,6 +12,13 @@ portedDomainCommand : DomainCommand -> Value
 portedDomainCommand domainCommand =
     case domainCommand of
         -- TODO: See if duplication can be DRY'd up after more different commands are created
+        CreateTextualEntityCommand command ->
+            let
+                dataValue =
+                    object []
+            in
+                jsonDomainCommand command.name dataValue
+
         UpdateTextualEntityCommand command ->
             let
                 dataValue =

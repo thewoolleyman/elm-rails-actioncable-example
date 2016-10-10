@@ -5,6 +5,7 @@ import Domain.Events.Types
         ( DomainEvent
         , EventData(..)
         , invalidDomainEvent
+        , textualEntityCreatedEventData
         , textualEntityUpdatedEventData
         , numericEntityUpdatedEventData
         )
@@ -77,6 +78,9 @@ decodeEventData eventType =
 eventDataDecoderForEventType : String -> Decoder EventData
 eventDataDecoderForEventType eventType =
     case eventType of
+        "TextualEntityCreated" ->
+            textualEntityCreatedEventDataDecoder
+
         "TextualEntityUpdated" ->
             textualEntityUpdatedEventDataDecoder
 
@@ -87,8 +91,15 @@ eventDataDecoderForEventType eventType =
             fail ("Invalid domain event type received. Event Type was: '" ++ eventType ++ "'")
 
 
+textualEntityCreatedEventDataDecoder : Decoder EventData
+textualEntityCreatedEventDataDecoder =
+    succeed textualEntityCreatedEventData
+        |: ("entityId" := string)
+        |: ("text" := string)
+
+
 {-|
-    Note: this uses the standard Elm Json.Decode library approach using `objectN` and `:=`
+    Note: textualEntityUpdatedEventDataDecoder uses the standard Elm Json.Decode library approach using `objectN` and `:=`
 -}
 textualEntityUpdatedEventDataDecoder : Decoder EventData
 textualEntityUpdatedEventDataDecoder =

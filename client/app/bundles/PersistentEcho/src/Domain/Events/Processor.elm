@@ -13,9 +13,11 @@ import Domain.Events.Types
         , DomainEventHistory
         , EventData(..)
         , invalidDomainEvent
+        , textualEntityCreatedEventData
         , textualEntityUpdatedEventData
         , numericEntityUpdatedEventData
         )
+import Domain.Events.TextualEntityCreated exposing (textualEntityCreated)
 import Domain.Events.TextualEntityUpdated exposing (textualEntityUpdated)
 import Domain.Events.NumericEntityUpdated exposing (numericEntityUpdated)
 import List exposing (foldl, head)
@@ -61,6 +63,9 @@ processEvent domainEvent domainState =
             domainEvent.data
     in
         case eventData of
+            TextualEntityCreatedEventData data ->
+                textualEntityCreated data domainState
+
             TextualEntityUpdatedEventData data ->
                 textualEntityUpdated data domainState
 

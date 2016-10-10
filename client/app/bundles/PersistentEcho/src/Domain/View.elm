@@ -1,6 +1,7 @@
 module Domain.View exposing (domainStateRow)
 
 import Types exposing (Msg(..))
+import Domain.Commands.CreateTextualEntity exposing (createTextualEntity)
 import Domain.Commands.UpdateTextualEntity exposing (updateTextualEntity)
 import Domain.Commands.UpdateNumericEntity exposing (updateNumericEntity)
 import Domain.Types exposing (DomainState, TextualEntity, NumericEntity)
@@ -21,10 +22,10 @@ domainStateRow domainState =
         textualPaneContent =
             case textualEntity of
                 Just entity ->
-                    textualPane entity
+                    textualEntityForm entity
 
                 Nothing ->
-                    div [ textualPaneStyle ] [ text "No Textual Entities" ]
+                    createTextualEntityButton
 
         numericEntity =
             head domainState.numericEntities
@@ -38,14 +39,19 @@ domainStateRow domainState =
                     div [ numericPaneStyle ] [ text "No Numeric Entities" ]
     in
         div [ domainStateRowStyle ]
-            [ textualPaneContent
+            [ div [ textualPaneStyle ] [ textualPaneContent ]
             , numericPaneContent
             ]
 
 
-textualPane : TextualEntity -> Html Msg
-textualPane textualEntity =
-    div [ textualPaneStyle ]
+createTextualEntityButton : Html Msg
+createTextualEntityButton =
+    div [] [ button [ onClick (createTextualEntity) ] [ text "Create Textual Entity" ] ]
+
+
+textualEntityForm : TextualEntity -> Html Msg
+textualEntityForm textualEntity =
+    div []
         [ div []
             [ text "Textual Entity State:" ]
         , div []
@@ -71,6 +77,6 @@ numericPane numericEntity =
             , span [] [ text (toString numericEntity.integer) ]
             ]
         , div []
-            [ button [ onClick (InvokeDomainCommand <| updateNumericEntity numericEntity.integer) ] [ text "Increment" ]
+            [ button [ onClick (updateNumericEntity numericEntity.integer) ] [ text "Increment" ]
             ]
         ]

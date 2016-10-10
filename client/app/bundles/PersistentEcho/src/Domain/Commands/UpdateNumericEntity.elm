@@ -1,11 +1,13 @@
 module Domain.Commands.UpdateNumericEntity exposing (updateNumericEntity)
 
+import Types exposing (Msg(..))
 import Domain.Commands.Types exposing (DomainCommand(..))
 
 
-updateNumericEntity : Int -> DomainCommand
+updateNumericEntity : Int -> Msg
 updateNumericEntity newInteger =
-    UpdateNumericEntityCommand
-        { name = "UpdateNumericEntity"
-        , data = { integer = newInteger + 1 }
-        }
+    InvokeDomainCommand <|
+        UpdateNumericEntityCommand
+            { name = "UpdateNumericEntity"
+            , data = { integer = newInteger + 1 }
+            }

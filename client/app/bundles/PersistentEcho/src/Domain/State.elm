@@ -5,11 +5,7 @@ import Domain.Types exposing (DomainState)
 
 initialDomainState : DomainState
 initialDomainState =
-    { textualEntities =
-        [ { entityId = "1"
-          , text = ""
-          }
-        ]
+    { textualEntities = []
     , numericEntities =
         [ { entityId = "1"
           , integer = 0

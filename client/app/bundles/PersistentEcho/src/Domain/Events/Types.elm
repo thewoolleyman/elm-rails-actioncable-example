@@ -5,6 +5,7 @@ module Domain.Events.Types
         , DomainEventHistory
         , EventData(..)
         , invalidDomainEvent
+        , textualEntityCreatedEventData
         , textualEntityUpdatedEventData
         , numericEntityUpdatedEventData
         )
@@ -40,7 +41,8 @@ type alias Sequence =
 
 
 type EventData
-    = TextualEntityUpdatedEventData TextualEntity
+    = TextualEntityCreatedEventData TextualEntity
+    | TextualEntityUpdatedEventData TextualEntity
     | NumericEntityUpdatedEventData NumericEntity
     | Invalid String
 
@@ -55,8 +57,17 @@ invalidDomainEvent errorMessage =
 
 
 {-
-   TODO: Why can't this use the parameter style of creating a record, e.g.: eventData = TextualEntity entityId integer
+   TODO: Why can't these use the parameter style of creating a record, e.g.: eventData = TextualEntity entityId integer
 -}
+
+
+textualEntityCreatedEventData : String -> String -> EventData
+textualEntityCreatedEventData entityId text =
+    let
+        eventData =
+            { entityId = entityId, text = text }
+    in
+        TextualEntityCreatedEventData eventData
 
 
 textualEntityUpdatedEventData : String -> String -> EventData

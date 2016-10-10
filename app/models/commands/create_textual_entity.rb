@@ -1,12 +1,10 @@
 module Commands
-  class UpdateTextualEntity
+  class CreateTextualEntity
     def invoke(data)
-      entity = TextualEntity.find_by_id(1)
-      text = data.fetch('text')
-      entity.update_attributes!(text: text)
+      entity = TextualEntity.create(id: 1, text: '')
 
       # generate event
-      event = ::TextualEntityUpdated.new(
+      event = ::TextualEntityCreated.new(
         data: JSON.generate({
           entityId: entity.id.to_s,
           text: entity.text,

@@ -24,6 +24,13 @@ import List exposing (map)
 invokeCommand : DomainCommand -> Model -> ( Model, Cmd Msg )
 invokeCommand domainCommand model =
     case domainCommand of
+        CreateTextualEntityCommand command ->
+            let
+                newModel =
+                    logDomainCommandToHistory domainCommand model
+            in
+                ( newModel, invokeCommandOnServer (portedDomainCommand domainCommand) )
+
         UpdateTextualEntityCommand command ->
             let
                 newModel =
