@@ -12,12 +12,13 @@ textualEntityUpdatedJson : Value
 textualEntityUpdatedJson =
     list <|
         [ object
-            [ ( "id", string "abc123" )
+            [ ( "eventId", string "abc123" )
             , ( "type", string "TextualEntityUpdated" )
             , ( "sequence", int 1 )
             , ( "data"
               , object
-                    [ ( "text", string "my text" )
+                    [ ( "entityId", string "textualEntity1" )
+                    , ( "text", string "my text" )
                     ]
               )
             ]
@@ -28,12 +29,13 @@ numericEntityUpdatedJson : Value
 numericEntityUpdatedJson =
     list <|
         [ object
-            [ ( "id", string "def456" )
+            [ ( "eventId", string "def456" )
             , ( "type", string "NumericEntityUpdated" )
             , ( "sequence", int 2 )
             , ( "data"
               , object
-                    [ ( "integer", int 42 )
+                    [ ( "entityId", string "numericEntity1" )
+                    , ( "integer", int 42 )
                     ]
               )
             ]
@@ -47,9 +49,9 @@ testTextualEntityParsing =
             \() ->
                 decodeDomainEventsFromPort textualEntityUpdatedJson
                     |> Expect.equal
-                        [ { id = "abc123"
+                        [ { eventId = "abc123"
                           , sequence = 1
-                          , data = textualEntityUpdatedEventData "my text"
+                          , data = textualEntityUpdatedEventData "textualEntity1" "my text"
                           }
                         ]
         ]
@@ -62,9 +64,9 @@ testNumericEntityParsing =
             \() ->
                 decodeDomainEventsFromPort numericEntityUpdatedJson
                     |> Expect.equal
-                        [ { id = "def456"
+                        [ { eventId = "def456"
                           , sequence = 2
-                          , data = numericEntityUpdatedEventData 42
+                          , data = numericEntityUpdatedEventData "numericEntity1" 42
                           }
                         ]
         ]

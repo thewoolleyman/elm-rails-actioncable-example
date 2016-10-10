@@ -24,17 +24,22 @@ type alias DomainCommandHistory =
 
 
 type DomainCommand
-    = UpdateTextCommand UpdateText
-    | UpdateNumberCommand UpdateNumber
+    = CreateTextualEntityCommand CreateTextualEntity
+    | UpdateTextualEntityCommand UpdateTextualEntity
+    | UpdateNumericEntityCommand UpdateNumericEntity
 
 
-type alias UpdateText =
+type alias CreateTextualEntity =
+    { name : String }
+
+
+type alias UpdateTextualEntity =
     { name : String
     , data : { text : String }
     }
 
 
-type alias UpdateNumber =
+type alias UpdateNumericEntity =
     { name : String
     , data : { integer : Int }
     }

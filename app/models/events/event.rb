@@ -12,7 +12,7 @@ class Event < ActiveRecord::Base
   def broadcast
     events_payload = [
       {
-        id: self.id.to_s,
+        eventId: self.id.to_s,
         sequence: sequence,
         type: type,
         data: JSON.load(data),

@@ -12,6 +12,7 @@ import Ports
         , logChannelConnectionSendFailure
         , receiveCommandInvocationResult
         )
+import Types exposing (Msg(..), Model)
 import Channels.ConnectionSendFailures
     exposing
         ( initialChannelConnectionSendFailures
@@ -21,19 +22,8 @@ import Channels.Status
         ( initialChannelConnectedStatuses
         , updateChannelConnectedStatus
         )
-import Types
-    exposing
-        ( Msg(..)
-        , Model
-        )
-import Domain.Types
-    exposing
-        ( DomainState
-        )
-import Domain.Commands.Processor
-    exposing
-        ( invokeCommand
-        )
+import Domain.State exposing (initialDomainState)
+import Domain.Commands.Processor exposing (invokeCommand)
 import Domain.Events.Processor
     exposing
         ( applyDomainEvents
@@ -61,13 +51,6 @@ initialCmds =
     Cmd.batch
         [ Cmd.none
         ]
-
-
-initialDomainState : DomainState
-initialDomainState =
-    { text = ""
-    , integer = 0
-    }
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )

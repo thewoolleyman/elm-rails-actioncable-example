@@ -23,7 +23,6 @@ const subscribe = (channelName,
       this._sendChannelConnectedStatusToPort(false);
     },
 
-    // TODO: Move this to its own channel
     // `received` is the standard function ActionCable calls when `ActionCable.server.broadcast` is
     // invoked via Rails on the server to send data to the client on this channel via websockets.
     // i.e. the single server -> client websocket connection for this channel

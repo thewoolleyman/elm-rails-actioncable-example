@@ -11,7 +11,15 @@ import Json.Encode exposing (..)
 portedDomainCommand : DomainCommand -> Value
 portedDomainCommand domainCommand =
     case domainCommand of
-        UpdateTextCommand command ->
+        -- TODO: See if duplication can be DRY'd up after more different commands are created
+        CreateTextualEntityCommand command ->
+            let
+                dataValue =
+                    object []
+            in
+                jsonDomainCommand command.name dataValue
+
+        UpdateTextualEntityCommand command ->
             let
                 dataValue =
                     object
@@ -20,8 +28,7 @@ portedDomainCommand domainCommand =
             in
                 jsonDomainCommand command.name dataValue
 
-        -- TODO: Duplication here
-        UpdateNumberCommand command ->
+        UpdateNumericEntityCommand command ->
             let
                 dataValue =
                     object
@@ -29,10 +36,6 @@ portedDomainCommand domainCommand =
                         ]
             in
                 jsonDomainCommand command.name dataValue
-
-
-
--- TODO: Duplication here
 
 
 jsonDomainCommand : String -> Value -> Value

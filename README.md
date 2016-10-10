@@ -12,8 +12,12 @@ The functionality of the app is to update two different types
 of Domain Entities: a TextualEntity which contains a single string field,
 and a NumericEntity which contains a single number (integer) field.
 
-Note that for simplicity, there is only one instance of each type of entity,
-so there's no concept of IDs or processing multiple entities of the same type.
+Note that for simplicity, you can only create multiple instances
+of the TextualEntity, to illustrate handling lists of multiple
+entity instances.
+
+For the NumericEntity, there is only ever exactly one instance of it
+in the list, which is automatically created and always has an entityId of 1.
 
 ## Requirements
 

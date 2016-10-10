@@ -5,6 +5,7 @@ import Domain.Events.Types
         ( DomainEvent
         , EventData(..)
         , invalidDomainEvent
+        , textualEntityCreatedEventData
         , textualEntityUpdatedEventData
         , numericEntityUpdatedEventData
         )
@@ -52,7 +53,7 @@ eventsDecoder =
 eventDecoder : Decoder DomainEvent
 eventDecoder =
     object3 DomainEvent
-        ("id" := string)
+        ("eventId" := string)
         ("sequence" := int)
         eventDataDecoder
 
@@ -77,6 +78,9 @@ decodeEventData eventType =
 eventDataDecoderForEventType : String -> Decoder EventData
 eventDataDecoderForEventType eventType =
     case eventType of
+        "TextualEntityCreated" ->
+            textualEntityCreatedEventDataDecoder
+
         "TextualEntityUpdated" ->
             textualEntityUpdatedEventDataDecoder
 
@@ -84,15 +88,24 @@ eventDataDecoderForEventType eventType =
             numericEntityUpdatedEventDataDecoder
 
         _ ->
-            fail ("Invalid domain event type received. Error message: '" ++ eventType ++ "'")
+            fail ("Invalid domain event type received. Event Type was: '" ++ eventType ++ "'")
+
+
+textualEntityCreatedEventDataDecoder : Decoder EventData
+textualEntityCreatedEventDataDecoder =
+    succeed textualEntityCreatedEventData
+        |: ("entityId" := string)
+        |: ("text" := string)
 
 
 {-|
-    Note: this uses the standard Elm Json.Decode library approach using `object1` and `:=`
+    Note: textualEntityUpdatedEventDataDecoder uses the standard Elm Json.Decode library approach using `objectN` and `:=`
 -}
 textualEntityUpdatedEventDataDecoder : Decoder EventData
 textualEntityUpdatedEventDataDecoder =
-    object1 textualEntityUpdatedEventData ("text" := string)
+    object2 textualEntityUpdatedEventData
+        ("entityId" := string)
+        ("text" := string)
 
 
 {-|
@@ -102,4 +115,5 @@ textualEntityUpdatedEventDataDecoder =
 numericEntityUpdatedEventDataDecoder : Decoder EventData
 numericEntityUpdatedEventDataDecoder =
     succeed numericEntityUpdatedEventData
+        |: ("entityId" := string)
         |: ("integer" := int)

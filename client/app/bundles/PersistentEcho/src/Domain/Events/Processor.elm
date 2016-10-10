@@ -13,11 +13,13 @@ import Domain.Events.Types
         , DomainEventHistory
         , EventData(..)
         , invalidDomainEvent
+        , textualEntityCreatedEventData
         , textualEntityUpdatedEventData
         , numericEntityUpdatedEventData
         )
-import Domain.Events.TextUpdated exposing (textUpdated)
-import Domain.Events.NumberUpdated exposing (numberUpdated)
+import Domain.Events.TextualEntityCreated exposing (textualEntityCreated)
+import Domain.Events.TextualEntityUpdated exposing (textualEntityUpdated)
+import Domain.Events.NumericEntityUpdated exposing (numericEntityUpdated)
 import List exposing (foldl, head)
 import Maybe exposing (withDefault, map)
 import Json.Decode
@@ -61,14 +63,17 @@ processEvent domainEvent domainState =
             domainEvent.data
     in
         case eventData of
-            TextualEntityUpdated text ->
-                textUpdated text domainState
+            TextualEntityCreatedEventData data ->
+                textualEntityCreated data domainState
 
-            NumericEntityUpdated integer ->
-                numberUpdated integer domainState
+            TextualEntityUpdatedEventData data ->
+                textualEntityUpdated data domainState
+
+            NumericEntityUpdatedEventData data ->
+                numericEntityUpdated data domainState
 
             Invalid msg ->
-                domainState
+                Debug.crash ("Unable to process invalid domain event: " ++ msg)
 
 
 logDomainEventToHistory : DomainEvent -> DomainEventHistory -> DomainEventHistory

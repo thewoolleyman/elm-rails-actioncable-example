@@ -5,9 +5,12 @@ module Domain.Events.Types
         , DomainEventHistory
         , EventData(..)
         , invalidDomainEvent
+        , textualEntityCreatedEventData
         , textualEntityUpdatedEventData
         , numericEntityUpdatedEventData
         )
+
+import Domain.Types exposing (TextualEntity, NumericEntity)
 
 
 type alias DomainEventHistory =
@@ -23,7 +26,7 @@ type alias DomainEventHistory =
 
 
 type alias DomainEvent =
-    { id : Id
+    { eventId : Id
     , sequence : Sequence
     , data : EventData
     }
@@ -38,32 +41,48 @@ type alias Sequence =
 
 
 type EventData
-    = TextualEntityUpdated String
-    | NumericEntityUpdated Int
+    = TextualEntityCreatedEventData TextualEntity
+    | TextualEntityUpdatedEventData TextualEntity
+    | NumericEntityUpdatedEventData NumericEntity
     | Invalid String
-
-
-type alias TextualEntityUpdatedEventData =
-    { text : String }
-
-
-type alias NumericEntityUpdatedEventData =
-    { integer : Int }
 
 
 invalidDomainEvent : String -> DomainEvent
 invalidDomainEvent errorMessage =
-    { id = ""
+    { eventId = ""
     , sequence = -1
     , data = Invalid errorMessage
     }
 
 
-textualEntityUpdatedEventData : String -> EventData
-textualEntityUpdatedEventData text =
-    TextualEntityUpdated text
+
+{-
+   TODO: Why can't these use the parameter style of creating a record, e.g.: eventData = TextualEntity entityId integer
+-}
 
 
-numericEntityUpdatedEventData : Int -> EventData
-numericEntityUpdatedEventData integer =
-    NumericEntityUpdated integer
+textualEntityCreatedEventData : String -> String -> EventData
+textualEntityCreatedEventData entityId text =
+    let
+        eventData =
+            { entityId = entityId, text = text }
+    in
+        TextualEntityCreatedEventData eventData
+
+
+textualEntityUpdatedEventData : String -> String -> EventData
+textualEntityUpdatedEventData entityId text =
+    let
+        eventData =
+            { entityId = entityId, text = text }
+    in
+        TextualEntityUpdatedEventData eventData
+
+
+numericEntityUpdatedEventData : String -> Int -> EventData
+numericEntityUpdatedEventData entityId integer =
+    let
+        eventData =
+            { entityId = entityId, integer = integer }
+    in
+        NumericEntityUpdatedEventData eventData
