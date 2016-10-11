@@ -1,7 +1,7 @@
 module Commands
   class CreateTextualEntity
     def invoke(data)
-      entity = TextualEntity.create(id: 1, text: '')
+      entity = TextualEntity.create!(text: '')
 
       # generate event
       event = ::TextualEntityCreated.new(
