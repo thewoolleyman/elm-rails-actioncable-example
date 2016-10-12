@@ -35,7 +35,10 @@ type alias CreateTextualEntity =
 
 type alias UpdateTextualEntity =
     { name : String
-    , data : { text : String }
+    , data :
+        { entityId : String
+        , text : String
+        }
     }
 
 

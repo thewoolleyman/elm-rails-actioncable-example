@@ -41,8 +41,13 @@ displayFlex =
 
 
 column =
-    [ ( "padding", "5px" )
+    [ ( "padding", "5px 0px" )
     , ( "width", "100%" )
+    ]
+
+
+itemRow =
+    [ ( "padding", "3px 5px 3px 5px" )
     ]
 
 
@@ -71,6 +76,13 @@ headerRowStyle =
         ]
 
 
+paneHeaderStyle : Attribute msg
+paneHeaderStyle =
+    style <|
+        [ ( "padding", "3px 0px 3px 0px" )
+        ]
+
+
 domainStateRowStyle : Attribute msg
 domainStateRowStyle =
     style <|
@@ -87,6 +99,24 @@ textualPaneStyle =
         append column
             [ border
             , ( "background", green2 )
+            , ( "overflow", "scroll" )
+            ]
+
+
+textualEntityListItemStyle : Attribute msg
+textualEntityListItemStyle =
+    style <|
+        [ ( "list-item-style", "none" )
+        , ( "margin", "0px" )
+        , ( "padding", "0px" )
+        ]
+
+
+textualEntityFormStyle : Attribute msg
+textualEntityFormStyle =
+    style <|
+        append itemRow
+            [ ( "border-top", "1px solid" )
             ]
 
 
@@ -111,6 +141,12 @@ historyRowStyle =
         ]
 
 
+historyItemRowStyle : Attribute msg
+historyItemRowStyle =
+    style <|
+        itemRow
+
+
 historyPaneStyle : Attribute msg
 historyPaneStyle =
     style <|
@@ -123,11 +159,12 @@ historyPaneStyle =
 channelStatusRowStyle : Attribute msg
 channelStatusRowStyle =
     style <|
-        [ border
-        , ( "background", lightblue )
-        , ( "flex", "1 0 100px" )
-        , ( "padding", "5px" )
-        ]
+        append itemRow
+            [ border
+            , ( "background", lightblue )
+            , ( "flex", "1 0 100px" )
+            , ( "padding", "5px" )
+            ]
 
 
 channelConnectedRowStyle : Attribute msg

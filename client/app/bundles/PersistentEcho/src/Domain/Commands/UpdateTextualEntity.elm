@@ -4,10 +4,13 @@ import Types exposing (Msg(..))
 import Domain.Commands.Types exposing (DomainCommand(..))
 
 
-updateTextualEntity : String -> Msg
-updateTextualEntity newText =
+updateTextualEntity : String -> String -> Msg
+updateTextualEntity entityId newText =
     InvokeDomainCommand <|
         UpdateTextualEntityCommand
             { name = "UpdateTextualEntity"
-            , data = { text = newText }
+            , data =
+                { entityId = entityId
+                , text = newText
+                }
             }

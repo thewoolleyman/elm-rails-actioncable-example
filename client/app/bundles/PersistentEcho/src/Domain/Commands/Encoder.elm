@@ -23,7 +23,8 @@ portedDomainCommand domainCommand =
             let
                 dataValue =
                     object
-                        [ ( "text", string command.data.text )
+                        [ ( "entityId", string command.data.entityId )
+                        , ( "text", string command.data.text )
                         ]
             in
                 jsonDomainCommand command.name dataValue

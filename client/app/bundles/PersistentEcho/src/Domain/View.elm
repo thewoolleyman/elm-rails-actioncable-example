@@ -10,56 +10,54 @@ import Styles exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput, onClick)
+import Html.Keyed as Keyed
+import Html.Lazy exposing (lazy)
 import List exposing (head)
 
 
 domainStateRow : DomainState -> Html Msg
 domainStateRow domainState =
-    let
-        textualEntity =
-            head domainState.textualEntities
+    div [ domainStateRowStyle ]
+        [ textualPane domainState.textualEntities
+        , numericPane domainState.numericEntities
+        ]
 
-        textualPaneContent =
-            case textualEntity of
-                Just entity ->
-                    textualEntityForm entity
 
-                Nothing ->
-                    createTextualEntityButton
-
-        numericEntity =
-            head domainState.numericEntities
-
-        numericPaneContent =
-            case numericEntity of
-                Just entity ->
-                    numericPane entity
-
-                Nothing ->
-                    div [ numericPaneStyle ] [ text "No Numeric Entities" ]
-    in
-        div [ domainStateRowStyle ]
-            [ div [ textualPaneStyle ] [ textualPaneContent ]
-            , numericPaneContent
+textualPane : List TextualEntity -> Html Msg
+textualPane textualEntities =
+    div [ textualPaneStyle ]
+        [ div [ paneHeaderStyle ]
+            [ text "Textual Entities State: "
+            , createTextualEntityButton
             ]
+        , Keyed.ul [ textualEntityListItemStyle ] <| List.map textualEntityFormKeyedEntry textualEntities
+        ]
 
 
 createTextualEntityButton : Html Msg
 createTextualEntityButton =
-    div [] [ button [ onClick (createTextualEntity) ] [ text "Create Textual Entity" ] ]
+    button [ onClick (createTextualEntity) ] [ text "Create Textual Entity" ]
+
+
+textualEntityFormKeyedEntry : TextualEntity -> ( String, Html Msg )
+textualEntityFormKeyedEntry textualEntity =
+    ( textualEntity.entityId, lazy textualEntityForm textualEntity )
 
 
 textualEntityForm : TextualEntity -> Html Msg
 textualEntityForm textualEntity =
-    div []
-        [ div []
-            [ text "Textual Entity State:" ]
-        , div []
+    div [ textualEntityFormStyle ]
+        [ span []
             [ span [] [ text "Send the text down: " ]
-            , input [ placeholder "type some text", value textualEntity.text, onInput updateTextualEntity ] []
+            , input
+                [ placeholder "type some text"
+                , value textualEntity.text
+                , onInput <| updateTextualEntity textualEntity.entityId
+                ]
+                []
             ]
-        , div []
-            [ span [] [ text "Flip it and reverse it: " ]
+        , span []
+            [ span [] [ text " Flip it and reverse it: " ]
             , span []
                 [ a [ href "https://youtu.be/UODX_pYpVxk", target "_" ] [ text (reverseIt textualEntity.text) ]
                 ]
@@ -67,12 +65,30 @@ textualEntityForm textualEntity =
         ]
 
 
-numericPane : NumericEntity -> Html Msg
-numericPane numericEntity =
-    div [ numericPaneStyle ]
+numericPane : List NumericEntity -> Html Msg
+numericPane numericEntities =
+    let
+        numericEntity =
+            head numericEntities
+
+        numericEntityFormRow =
+            case numericEntity of
+                Just entity ->
+                    numericEntityForm entity
+
+                Nothing ->
+                    div [] [ text "No Numeric Entity" ]
+    in
+        div [ numericPaneStyle ]
+            [ div [] [ text "Numeric Entity State:" ]
+            , numericEntityFormRow
+            ]
+
+
+numericEntityForm : NumericEntity -> Html Msg
+numericEntityForm numericEntity =
+    div []
         [ div []
-            [ text "Numeric Entity State:" ]
-        , div []
             [ span [] [ text "The number is currently: " ]
             , span [] [ text (toString numericEntity.integer) ]
             ]

@@ -11,7 +11,7 @@ import List exposing (map)
 eventHistoryPane : DomainEventHistory -> Html Msg
 eventHistoryPane domainEventHistory =
     div [ historyPaneStyle ]
-        [ div []
+        [ div [ historyItemRowStyle ]
             [ text "Domain Events Received History:" ]
         , eventHistoryRows domainEventHistory
         ]
@@ -19,5 +19,5 @@ eventHistoryPane domainEventHistory =
 
 eventHistoryRows : List DomainEvent -> Html Msg
 eventHistoryRows domainEvents =
-    div []
+    div [ historyItemRowStyle ]
         (map (\domainEvent -> div [] [ text <| toString domainEvent ]) domainEvents)

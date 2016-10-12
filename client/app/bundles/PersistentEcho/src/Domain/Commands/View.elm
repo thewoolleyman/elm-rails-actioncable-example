@@ -11,7 +11,7 @@ import List exposing (map)
 commandHistoryPane : DomainCommandHistory -> Html Msg
 commandHistoryPane domainCommandHistory =
     div [ historyPaneStyle ]
-        [ div []
+        [ div [ historyItemRowStyle ]
             [ text "Domain Commands Sent History:" ]
         , commandHistoryRows domainCommandHistory
         ]
@@ -19,5 +19,5 @@ commandHistoryPane domainCommandHistory =
 
 commandHistoryRows : List DomainCommand -> Html Msg
 commandHistoryRows domainCommands =
-    div []
+    div [ historyItemRowStyle ]
         (map (\domainCommand -> div [] [ text <| toString domainCommand ]) domainCommands)
